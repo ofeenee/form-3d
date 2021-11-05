@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <meta name=”apple-mobile-web-app-capable” content=”yes”>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="User Account">
+
+
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script src="./lib/validator.min.js" defer></script>
+
+  <link rel="stylesheet" href="./css/user.css">
+  <script src="./js/user.js" type="module" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+  <script src="./js/script.js" defer></script>
+  <script src="./lib/components/main-background/main-background.js" defer></script>
+  <script src="./lib/components/user-account/email/username-email.js" type="module"></script>
+
+  <title>User</title>
+</head>
+<body ontouchstart="">
+
+  <main>
+    <form action="#" id="user-account" autocomplete="off">
+      <fieldset id="steps">
+          <section id="one">
+            <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="username email"
+            inputmode="email"
+            enterkeyhint="submit"
+            placeholder="your@email.com"
+            >
+            <label for="email">account e-email address</label>
+          </section>
+          <section id="two">
+            <input
+            type="one-time-code"
+            id="verify-email"
+            name="email-email"
+            required
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            enterkeyhint="submit"
+            placeholder="123456"
+            >
+            <label for="email">get code</label>
+          </section>
+      </fieldset>
+      <div id="status">
+        <p id="message">delete to go back</p>
+      </div>
+      <div id="navScene">
+        <nav id="buttons" class="back">
+          <button type="button" id="back">back</button>
+          <button type="submit" id="submit">submit</button>
+          <button type="button" id="next">next</button>
+          <div id="bottom"></div>
+          <div id="left-wall"></div>
+          <div id="right-wall"></div>
+        </nav>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <ul>
+      <li>Colliverde</li>
+    </ul>
+  </footer>
+  <main-background
+  src-2='https://picsum.photos/3840/2160'
+  src-3="/public/lib/components/main-background/src/background9.jpg"
+  src-4='/public/lib/components/main-background/src/placeholder.jpeg'
+  src-1="/public/lib/components/main-background/src/yellow.jpg"
+  id="mbg"
+  name="backgroundLoaded">
+</main-background>
+</body>
+</html>

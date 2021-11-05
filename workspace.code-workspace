@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Classes/User"
+		},
+		{
+			"path": "../../Classes/Email"
+		},
+		{
+			"path": "../../Classes/ID"
+		},
+		{
+			"path": "../../Classes/Phone"
+		},
+		{
+			"path": "../../Classes/Password"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Routes",
+		"liveServer.settings.port": 81
+	}
+}

@@ -1,0 +1,367 @@
+:root {
+
+
+  --prm-color: white;
+  --prm-color-glass: white;
+  --sub-color: rgba(235, 235, 235, 0.95);
+  --sub-color-glass: rgba(235, 235, 235, 0.95);
+  --sub-background-color: rgba(65, 65, 65, 0.65);
+  --sub-background-color-glass: rgba(65, 65, 65, 0.40);
+
+
+  --background-color-valid: rgba(020, 175, 020, 0.75);
+  --background-color-valid-glass: rgba(020, 175, 020, 0.45);
+
+  --background-color-invalid: rgba(250, 010, 010, 0.75);
+  --background-color-invalid-glass: rgba(250, 010, 010, 0.45);
+
+  --status-background-color: rgba(255, 255, 255, 0.5);
+  --status-background-color-glass: rgba(255,255,255, 0.35);
+  --status-inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
+
+  --status-color-invalid: rgba(255, 48, 48, 0.65);
+  --status-inset-shadow-invalid: inset 0px 0px 6px 3px var(--status-color-invalid);
+
+  --status-color-valid: rgba(9, 167, 35, 0.65);
+  --status-inset-shadow-valid: inset 0px 0px 6px 3px var(--status-color-valid);
+
+
+  --drop-shadow-color: rgba(0, 0, 0, 0.35);
+  --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
+
+  --glow-focus-color: rgba(15, 103, 244, 0.9);
+  --shadow-focus-color: rgba(48, 121, 238, 0.65);
+  --glow-focus: 0px 0px 3px 2px var(--glow-focus-color);
+  --shadow-focus: inset 0px 0px 6px 3px var(--shadow-focus-color);
+
+
+  --input-background-color: rgba(255, 255, 255, 0.5);
+
+  --button-background-color: rgba(2, 64, 180, 0.6);
+  --button-background-color-glass: rgba(48, 121, 255, 0.50);
+  --button-background-color-active: rgba(35, 95, 195, 0.75);
+
+  --autofill-color: white;
+  --autofill-background-color: rgba(0, 0, 0, 0.5);
+
+  --label-height: 22px;
+  --button-height: 65px;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 275px !important;
+  height: 100%;
+
+  z-index: 1;
+  gap: 3px;
+  perspective: 1200px;
+}
+
+fieldset#steps {
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+
+section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--sub-background-color);
+  transform-style: preserve-3d;
+
+}
+
+input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  padding: 15px 25px var(--label-height) 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  font-size: 12pt;
+  font-weight: 500;
+  /* letter-spacing: 0.75pt; */
+  text-align: center;
+
+  color: var(--prm-color);
+  background-color: transparent;
+  transform-style: preserve-3d;
+
+  transition: transform 0.5s ease-in-out;
+}
+
+
+input::placeholder {
+  opacity: 0.45 !important;
+  color: var(--prm-color);
+
+  /* font-size: 13pt; */
+  font-weight: 300;
+  /* letter-spacing: 2pt; */
+}
+
+input:focus {
+  box-shadow: var(--glow-focus);
+}
+
+input#email {
+  word-wrap: break-word;
+  white-space: pre-line;
+
+}
+
+section#two {
+  visibility: hidden;
+}
+
+label {
+  position: absolute;
+  /* height: calc(50% - 15px); */
+  height: var(--label-height);
+  width: calc(100% - var(--label-height));
+
+
+
+  bottom: calc(35% - var(--label-height));
+  color: var(--prm-color);
+  opacity: 1;
+
+  border-top: 1px dotted var(--prm-color);
+
+  font-size: 7pt;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+
+  transform-style: preserve-3d;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transform: perspective(1000px) translateZ(1px);
+
+  z-index: 3;
+}
+
+input:autofill {
+  filter: brightness(0.6) grayscale(1) invert(0) saturate(4) hue-rotate(300deg) opacity(.75) !important;
+}
+
+input:autofill + label {
+  /* background-color: var(--autofill-background-color); */
+  color: var(--autofill-color);
+  font-weight: 500;
+}
+
+input:-webkit-autofill {
+  /* font-size: 16px; */
+  filter: brightness(.6) grayscale(1) invert(0) saturate(19) hue-rotate(200deg) opacity(.75);
+}
+input:-webkit-autofill + label{
+  /* background-color: var(--autofill-background-color) !important; */
+  color: var(--autofill-color) !important;
+}
+
+#status {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transform-style: preserve-3d;
+
+  background-color: var(--sub-background-color);
+  color: var(--prm-color);
+
+  height: 15px;
+  width: 100%;
+
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 1pt;
+  text-align: center;
+
+  /* z-index: 9; */
+}
+
+
+
+#navScene {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--button-height);
+  /* box-shadow: 0 0 6px 1px black; */
+  /* border: 1px solid red; */
+  /* perspective: 1200px; */
+  /* perspective: 600px; */
+  perspective: 300px;
+  /* transform-style: preserve-3d; */
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: var(--button-height);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
+  transform-origin: 50% 50% calc(var(--button-height) / 2 * -1);
+}
+
+#buttons.back {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 0px);
+}
+
+#buttons.submit {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#buttons.next {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
+}
+
+
+button {
+  position: absolute;
+  width: 100%;
+  height: var(--button-height);
+
+  color: white;
+  background-color: var(--button-background-color);
+
+  font-weight: 800;
+  font-size: 9pt;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+
+  border-radius: 0;
+
+  margin: 0;
+  padding: 0;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+
+  transform-style: preserve-3d;
+
+  /* backface-visibility: hidden; */
+  /* -webkit-backface-visibility: hidden; */
+}
+
+button:active {
+  background-color: var(--button-background-color-active) !important;
+  box-shadow: var(--inset-shadow);
+}
+#navScene div {
+  position: absolute;
+  height: var(--button-height);
+  background-color: var(--button-background-color);
+}
+
+button#back {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 50%, calc(var(--button-height) / 2 * 1));
+}
+button#submit {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+button#next {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -50%, calc(var(--button-height) / 2 * 1));
+}
+
+div#bottom {
+  width: 100%;
+  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 65px);
+}
+div#left-wall {
+  width: var(--button-height);
+  transform: rotate3d(0, 1, 0, 90deg) translate3d(calc(var(--button-height) / 2), 0px, calc(var(--button-height) / 2 * -1));
+}
+div#right-wall {
+  width: var(--button-height);
+  transform: rotate3d(0, 1, 0, 90deg) translate3d(calc(var(--button-height) / 2), 0px, calc(275px - (var(--button-height) / 2)));
+}
+
+/* button:disabled {
+  pointer-events: none;
+  filter: grayscale(1);
+} */
+
+
+@supports (-webkit-backdrop-filter: blur(7px)) {
+
+  p.status {
+    /* background-color: var(--sub-background-color-glass) !important; */
+    /* -webkit-backdrop-filter: blur(7px) !important; */
+
+  }
+
+  p.status.valid {
+    /* background-color: var(--background-color-valid-glass) !important; */
+    /* -webkit-backdrop-filter: blur(7px) !important; */
+  }
+
+  p.status.invalid {
+    /* background-color: var(--background-color-invalid-glass) !important; */
+    /* -webkit-backdrop-filter: blur(7px) !important; */
+  }
+  input {
+    /* background-color: var(--sub-background-color-glass) !important; */
+    /* -webkit-backdrop-filter: blur(7px) !important; */
+  }
+  button {
+    /* background-color: var(--button-background-color-glass) !important; */
+    /* -webkit-backdrop-filter: blur(7px); */
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media only screen {
+      :host {
+        width: 275px;
+      }
+
+      label {
+        font-weight: 500 !important;
+      }
+  }
+}
