@@ -21,6 +21,7 @@
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "Routes",
-		"liveServer.settings.port": 81
+		"liveServer.settings.port": 81,
+		"livePreview.defaultPreviewPath": "/Users/Yousif/Documents/www/@ofeenee/Express/Routes/public/index.html"
 	}
 }

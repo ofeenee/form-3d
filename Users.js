@@ -58,7 +58,7 @@ Users.post('/send/code/email', loadUserByEmail, async function(req, res) {
     const verified = await redis.get(emailPrefix + user.email.get());
     console.log('/send/code/email:', user.email.get(), verified);
 
-    if (verified === 'verified') return res.status(200).json({email: user.email.get(), verified});
+    if (verified === 'verified') return res.status(200).json({email: user.email.get(), verified: 'true'});
 
 
 
@@ -81,16 +81,16 @@ Users.post('/verify/code/email', async function(req, res) {
     const verified = await redis.get(emailPrefix + user.email.get());
     console.log('/verify/code/email:', user.email.get(), verified);
 
-    if (verified === 'verified') return res.status(200).json({ email: user.email.get(), verified });
+    if (verified === 'true') return res.status(200).json({ email: user.email.get(), verified });
 
     const verification = await user.email.verification.confirmCode(req.body.code);
     if (verification.status === 'approved') {
-      const verified = await redis.put(emailPrefix + user.email.get(), 'verified');
+      const verified = await redis.put(emailPrefix + user.email.get(), 'true');
 
       const codeRequested = await redis.del(codePrefix + user.email.get());
       console.log('delete code request from redis...', codeRequested);
 
-      return res.status(200).json({email: user.email.get(), verified: 'verified', redis: verified});
+      return res.status(200).json({email: user.email.get(), verified: 'true', redis: verified});
     }
 
     return res.status(401).json({email: user.email.get(), error: 'code invalid.'});
@@ -275,7 +275,7 @@ async function checkUserEmailVerification(req, res, next) {
 
 
     const state = await redis.get(emailPrefix + user.email.get());
-    if (state === null) await redis.set(emailPrefix + user.email.get(), false);
+    if (state === null) await redis.set(emailPrefix + user.email.get(), 'false');
     console.log('verification process - email:', user.email.get(), state);
     req.user.verified = state;
     next();

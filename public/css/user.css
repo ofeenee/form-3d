@@ -1,12 +1,19 @@
 :root {
 
+  --form-width: 280px;
+  --form-height: 200px;
 
-  --prm-color: white;
-  --prm-color-glass: white;
-  --sub-color: rgba(235, 235, 235, 0.95);
-  --sub-color-glass: rgba(235, 235, 235, 0.95);
-  --sub-background-color: rgba(65, 65, 65, 0.65);
-  --sub-background-color-glass: rgba(65, 65, 65, 0.40);
+  --transition-duration: 0.4s;
+
+  --perspective: 600px;
+
+  --primary-color: white;
+  --primary-color-glass: white;
+
+  --secondary-color: rgba(235, 235, 235, 0.95);
+  --secondary-color-glass: rgba(235, 235, 235, 0.95);
+  --secondary-background-color: rgba(65, 65, 65, 0.75);
+  --secondary-background-color-glass: rgba(65, 65, 65, 0.40);
 
 
   --background-color-valid: rgba(020, 175, 020, 0.75);
@@ -15,139 +22,288 @@
   --background-color-invalid: rgba(250, 010, 010, 0.75);
   --background-color-invalid-glass: rgba(250, 010, 010, 0.45);
 
-  --status-background-color: rgba(255, 255, 255, 0.5);
-  --status-background-color-glass: rgba(255,255,255, 0.35);
-  --status-inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
-
-  --status-color-invalid: rgba(255, 48, 48, 0.65);
-  --status-inset-shadow-invalid: inset 0px 0px 6px 3px var(--status-color-invalid);
-
-  --status-color-valid: rgba(9, 167, 35, 0.65);
-  --status-inset-shadow-valid: inset 0px 0px 6px 3px var(--status-color-valid);
+  --info-background-color: rgba(55, 55, 55, 0.85);
+  --info-color-valid: rgba(9, 167, 35, 0.85);
+  --info-color-invalid: rgba(255, 48, 48, 0.85);
 
 
   --drop-shadow-color: rgba(0, 0, 0, 0.35);
   --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
 
-  --glow-focus-color: rgba(15, 103, 244, 0.9);
+  --glow-focus-color: rgb(0, 174, 255);
   --shadow-focus-color: rgba(48, 121, 238, 0.65);
-  --glow-focus: 0px 0px 3px 2px var(--glow-focus-color);
+
+  --glow-focus: 0px 0px 6px 5px var(--glow-focus-color);
   --shadow-focus: inset 0px 0px 6px 3px var(--shadow-focus-color);
 
 
   --input-background-color: rgba(255, 255, 255, 0.5);
 
-  --button-background-color: rgba(2, 64, 180, 0.6);
+  --button-background-color: rgba(2, 64, 180, 0.75);
   --button-background-color-glass: rgba(48, 121, 255, 0.50);
   --button-background-color-active: rgba(35, 95, 195, 0.75);
 
   --autofill-color: white;
   --autofill-background-color: rgba(0, 0, 0, 0.5);
 
+  --input-height: 100px;
   --label-height: 22px;
-  --button-height: 65px;
+
+
+  --button-height: 64px;
+  --button-height-half: 32px;
 }
+
+
+
+
+
+
+
+
 
 
 form {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
+  flex-grow: 0;
 
-  width: 275px !important;
-  height: 100%;
+  width: var(--form-width) !important;
+  height: var(--form-height) !important;
 
   z-index: 1;
-  gap: 3px;
-  perspective: 1200px;
+  gap: 20px;
+
+  perspective: var(--perspective);
 }
 
-fieldset#steps {
+
+
+
+
+
+
+
+#fieldsetScene {
   position: relative;
-  width: 100%;
-  height: 100px;
+  width: var(--form-width) !important;
+  height: var(--input-height) !important;
+  flex-shrink: 0;
+  flex-grow: 0;
+
 }
 
-section {
+
+#fieldsetScene div#sections {
+
+  /* width: 100%; */
+  /* height: 100%; */
+  width: var(--form-width);
+  height: var(--input-height);
+
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+  transform-origin: 50% 50% -50px;
+}
+
+#fieldsetScene #sections.email-address {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene #sections.phone-number {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
+  /* transform: perspective(var(--perspective)) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px); */
+}
+
+#fieldsetScene #sections section {
   position: absolute;
-  top: 0;
-  left: 0;
+
+  /* perspective: var(--perspective); */
+  transform-style: preserve-3d;
+  /* backface-visibility: hidden; */
+  /* -webkit-backface-visibility: hidden; */
+
+  /* width: var(--form-width); */
+  /* height: var(--input-height); */
+
   width: 100%;
-  height: 100px;
+  height: 100%;
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+
+
+
+  outline: 1px solid white;
+
+
+}
+
+
+#fieldsetScene section#email-address {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+
+#fieldsetScene section#phone-number {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -50px, 50px) !important;
+}
+
+#fieldsetScene section#email-address {
+  /* display: none; */
+}
+
+#fieldsetScene section#phone-number {
+  /* display: none; */
+}
+
+#fieldsetScene section div {
+  position: absolute;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--sub-background-color);
+
+
   transform-style: preserve-3d;
 
+  /* width: var(--form-width); */
+  /* height: var(--input-height); */
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  width: 100%;
+  height: 100%;
 }
 
-input {
-  position: absolute;
-  top: 0;
-  left: 0;
+
+#fieldsetScene section#email-address > div#set-email {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+
+#fieldsetScene section#email-address > div#verify-email {
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px) !important;
+}
+
+
+#fieldsetScene section#email-address.set-email {
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+#fieldsetScene section#email-address.verify-email {
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px) !important;
+}
+
+/*
+//////////////////////////////////
+*/
+
+#fieldsetScene section#phone-number > div#set-phone {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#phone-number > div#verify-phone {
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
+}
+
+
+#fieldsetScene section#phone-number.set-phone {
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+#fieldsetScene section#phone-number.verify-phone {
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
+}
+
+
+
+#fieldsetScene section div input {
+  /* width: var(--form-width); */
+  /* height: var(--input-height); */
+
   width: 100%;
   height: 100%;
 
   padding: 15px 25px var(--label-height) 25px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: var(--primary-color);
+  background-color: var(--secondary-background-color);
 
 
   font-size: 12pt;
   font-weight: 500;
-  /* letter-spacing: 0.75pt; */
+
   text-align: center;
+  text-transform: lowercase;
 
-  color: var(--prm-color);
-  background-color: transparent;
-  transform-style: preserve-3d;
 
-  transition: transform 0.5s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 
-input::placeholder {
+
+
+#fieldsetScene section input::placeholder {
   opacity: 0.45 !important;
-  color: var(--prm-color);
+  color: var(--primary-color);
 
-  /* font-size: 13pt; */
   font-weight: 300;
-  /* letter-spacing: 2pt; */
 }
 
-input:focus {
+#fieldsetScene section input:focus {
   box-shadow: var(--glow-focus);
 }
 
-input#email {
-  word-wrap: break-word;
-  white-space: pre-line;
 
+
+#fieldsetScene section input:autofill {
+  filter: brightness(.5) grayscale(0) invert(1) saturate(19) hue-rotate(310deg) opacity(.65) !important;
 }
 
-section#two {
-  visibility: hidden;
+#fieldsetScene section input:autofill + label {
+  color: var(--autofill-color) !important;
+  font-weight: 500;
 }
 
-label {
+#fieldsetScene section input:-webkit-autofill {
+  filter: brightness(.7) grayscale(0) invert(1) saturate(19) hue-rotate(180deg) opacity(.65);
+}
+#fieldsetScene section input:-webkit-autofill + label{
+  color: var(--autofill-color);
+}
+
+#fieldsetScene section input:-moz-autofill {
+  filter: brightness(.7) grayscale(0) invert(1) saturate(19) hue-rotate(180deg) opacity(.65);
+}
+#fieldsetScene section input:-moz-autofill + label{
+  color: var(--autofill-color);
+}
+
+#fieldsetScene section label {
   position: absolute;
-  /* height: calc(50% - 15px); */
-  height: var(--label-height);
-  width: calc(100% - var(--label-height));
+  height: (var(--input-height) - var(--label-height));
+  width: calc(var(--form-width) - var(--label-height));
 
+  padding-top: 5px;
 
-
-  bottom: calc(35% - var(--label-height));
-  color: var(--prm-color);
+  bottom: var(--label-height);
+  color: var(--primary-color);
   opacity: 1;
 
-  border-top: 1px dotted var(--prm-color);
+  border-top: 1px dotted var(--primary-color);
 
   font-size: 7pt;
   font-weight: 300;
@@ -156,58 +312,211 @@ label {
   text-align: center;
   white-space: nowrap;
 
-  transform-style: preserve-3d;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  transform: perspective(1000px) translateZ(1px);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 
-  z-index: 3;
+  /* z-index: 3; */
 }
 
-input:autofill {
-  filter: brightness(0.6) grayscale(1) invert(0) saturate(4) hue-rotate(300deg) opacity(.75) !important;
+
+
+
+
+
+
+#fieldsetScene #email-verification-code, #fieldsetScene #phone-verification-code {
+  letter-spacing: 14pt;
+  font-size: 18pt !important;
+  padding-left: 45px !important;
+  padding-bottom: 28px !important;
 }
 
-input:autofill + label {
-  /* background-color: var(--autofill-background-color); */
-  color: var(--autofill-color);
-  font-weight: 500;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#statusScene {
+  position: relative;
+  display: block;
+  width: var(--form-width);
+  height: 36px;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+  transform-style: preserve-3d;
 }
 
-input:-webkit-autofill {
-  /* font-size: 16px; */
-  filter: brightness(.6) grayscale(1) invert(0) saturate(19) hue-rotate(200deg) opacity(.75);
-}
-input:-webkit-autofill + label{
-  /* background-color: var(--autofill-background-color) !important; */
-  color: var(--autofill-color) !important;
-}
-
-#status {
-
+#statusScene #info {
+  position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  flex-grow: 0;
+  /* flex-basis: none; */
+
   justify-content: center;
   align-items: center;
 
-  transform-style: preserve-3d;
 
-  background-color: var(--sub-background-color);
-  color: var(--prm-color);
-
-  height: 15px;
-  width: 100%;
+  height: 36px !important;
+  width: 280px !important;
 
   font-size: 10px;
   font-weight: 300;
   letter-spacing: 1pt;
   text-align: center;
 
-  /* z-index: 9; */
+  transform-style: preserve-3d;
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+
+  transform-origin: 50% 50% -18px;
+}
+
+#statusScene #info.valid {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
+}
+
+#statusScene #info.notice {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#statusScene #info.invalid {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 0px);
+}
+
+#statusScene #info.code {
+  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 0px);
+}
+
+
+.error_shake {
+  animation: .1s ease-in-out 2 0.25s normal forwards running error_shake;
+}
+
+
+#statusScene #info p, #statusScene #info button {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  color: var(--primary-color);
+
+  outline: 1px solid white;
+  /* outline-offset: 10px; */
+  border: none;
+  /* outline: none; */
+
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden;
+}
+
+#statusScene #info p {
+  user-select: all;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+}
+
+
+#statusScene #info button#code {
+  color: var(--primary-color);
+  background-color: var(--button-background-color);
+
+  font-weight: 300;
+  letter-spacing: 1pt;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+#statusScene #info div {
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+#statusScene #info #valid {
+  background-color: var(--info-color-valid);
+  transform: translate3d(0px, -18px, -18px) rotate3d(1, 0, 0, 90deg);
+
+}
+
+#statusScene #info #notice {
+  background-color: var(--info-background-color);
+  transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, 0deg);
+
+}
+
+#statusScene #info #invalid {
+  background-color: var(--info-color-invalid);
+  transform: translate3d(0px, 18px, -18px) rotate3d(1, 0, 0, -90deg);
+
+}
+
+#statusScene #info #code {
+  background-color: var(--button-background-color);
+  color: var(--primary-color);
+  transform: translate3d(0px, 0px, -36px) rotate3d(1, 0, 0, -180deg);
+
+}
+
+#statusScene #info > div#left-wall {
+  position: absolute;
+  background-color: var(--secondary-background-color);
+  height: 36px;
+  width: 36px;
+  transform: translate3d(-140px, 0px, -18px) rotate3d(0, 1, 0, -90deg);
+  outline: 1px solid white;
+  /* display: none; */
+
+}
+
+#statusScene #info > div#right-wall {
+  position: absolute;
+  background-color: var(--secondary-background-color);
+  height: 36px;
+  width: 36px;
+  transform: translate3d(140px, 0px, -18px) rotate3d(0, 1, 0, 90deg);
+  outline: 1px solid white;
+  /* display: none; */
 }
 
 
@@ -215,64 +524,68 @@ input:-webkit-autofill + label{
 #navScene {
   position: relative;
   display: block;
-  width: 100%;
+  width: var(--form-width);
   height: var(--button-height);
-  /* box-shadow: 0 0 6px 1px black; */
-  /* border: 1px solid red; */
-  /* perspective: 1200px; */
-  /* perspective: 600px; */
-  perspective: 300px;
-  /* transform-style: preserve-3d; */
+  flex-shrink: 0;
+  flex-grow: 0;
+
+  perspective: inherit;
+
 }
 
-#buttons {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+#navScene #buttons {
+  width: var(--form-width);
   height: var(--button-height);
+
+
   transform-style: preserve-3d;
-  transition: transform 0.5s ease-in-out;
-  transform-origin: 50% 50% calc(var(--button-height) / 2 * -1);
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+  transform-origin: 50% 50% -32px;
+
 }
 
-#buttons.back {
+#navScene #buttons.back {
   transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 0px);
 }
 
-#buttons.submit {
+#navScene #buttons.submit {
   transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
 }
 
-#buttons.next {
+#navScene #buttons.next {
   transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
 }
 
 
-button {
+#navScene button {
+
   position: absolute;
-  width: 100%;
+  width: var(--form-width);
   height: var(--button-height);
 
   color: white;
   background-color: var(--button-background-color);
 
-  font-weight: 800;
+  text-rendering: optimizeLegibility !important;
+  /* text-rendering: geometricPrecision !important; */
+
   font-size: 9pt;
+  font-weight: 700;
 
   text-align: center;
   text-transform: uppercase;
+
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: auto !important;
 
   letter-spacing: 2px;
 
   cursor: pointer;
 
-  border: none;
-  outline: none;
+  outline: 1px solid white;
 
-  border-radius: 0;
-
-  margin: 0;
-  padding: 0;
+  tasnfrom-style: preserve-3d;
 
   appearance: none;
   -webkit-appearance: none;
@@ -282,10 +595,9 @@ button {
   -webkit-user-select: none;
   -moz-user-select: none;
 
-  transform-style: preserve-3d;
 
-  /* backface-visibility: hidden; */
-  /* -webkit-backface-visibility: hidden; */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 button:active {
@@ -294,63 +606,96 @@ button:active {
 }
 #navScene div {
   position: absolute;
+  top: 0;
+  left: 0;
   height: var(--button-height);
   background-color: var(--button-background-color);
+
+  outline: 1px solid white;
+
+  transform-style: preserve-3d;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-button#back {
-  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 50%, calc(var(--button-height) / 2 * 1));
+#navScene button#back {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 32px, 32px);
 }
-button#submit {
+#navScene button#submit {
   transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
 }
-button#next {
-  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -50%, calc(var(--button-height) / 2 * 1));
+#navScene button#next {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -32px, 32px);
 }
 
-div#bottom {
-  width: 100%;
-  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 65px);
+#navScene div#bottom {
+  width: var(--form-width);
+  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 64px);
 }
-div#left-wall {
+#navScene div#left-wall {
   width: var(--button-height);
-  transform: rotate3d(0, 1, 0, 90deg) translate3d(calc(var(--button-height) / 2), 0px, calc(var(--button-height) / 2 * -1));
+  transform: rotate3d(0, 1, 0, -90deg) translate3d(-32px, 0px, 32px);
+  /* display: none; */
 }
-div#right-wall {
+#navScene div#right-wall {
   width: var(--button-height);
-  transform: rotate3d(0, 1, 0, 90deg) translate3d(calc(var(--button-height) / 2), 0px, calc(275px - (var(--button-height) / 2)));
+  transform: rotate3d(0, 1, 0, 90deg) translate3d(32px, 0px, calc(var(--form-width) - 32px));
+  /* display: none; */
 }
 
-/* button:disabled {
-  pointer-events: none;
-  filter: grayscale(1);
-} */
+button:disabled {
+  pointer-events: none !important;
+  filter: grayscale(1) !important;
+}
 
 
 @supports (-webkit-backdrop-filter: blur(7px)) {
 
-  p.status {
-    /* background-color: var(--sub-background-color-glass) !important; */
+  p.info {
+    /* background-color: var(--secondary-background-color-glass) !important; */
     /* -webkit-backdrop-filter: blur(7px) !important; */
 
   }
 
-  p.status.valid {
+  p.info.valid {
     /* background-color: var(--background-color-valid-glass) !important; */
     /* -webkit-backdrop-filter: blur(7px) !important; */
   }
 
-  p.status.invalid {
+  p.info.invalid {
     /* background-color: var(--background-color-invalid-glass) !important; */
     /* -webkit-backdrop-filter: blur(7px) !important; */
   }
   input {
-    /* background-color: var(--sub-background-color-glass) !important; */
+    /* background-color: var(--secondary-background-color-glass) !important; */
     /* -webkit-backdrop-filter: blur(7px) !important; */
   }
   button {
     /* background-color: var(--button-background-color-glass) !important; */
     /* -webkit-backdrop-filter: blur(7px); */
+  }
+}
+
+
+
+
+/* @keyframes duration | easing-function | delay |
+iteration-count | direction | fill-mode | play-state | name */
+/* animation: 3s ease-in 1s 2 reverse both paused slidein; */
+
+@keyframes error_shake {
+  0% {
+    transform: translateX(0%);
+  }
+  25% {
+    transform: translateX(5%);
+  }
+  50% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(0%);
   }
 }
 
@@ -363,5 +708,36 @@ div#right-wall {
       label {
         font-weight: 500 !important;
       }
+
+      #notice, #valid, #invalid, #code {
+        font-weight: 400 !important;
+      }
+  }
+}
+
+@supports selector(:nth-child(1 of x)) {
+  #statusScene {
+    filter: blur(0px);
+    transform: translate3d(0px, 0px, 50px);
+  }
+
+  #navScene {
+    filter: blur(0px);
+    transform: translate3d(0px, 0px, 18px);
+  }
+
+  @keyframes error_shake {
+    0% {
+    transform: translate3d(0%, 0%, 50px);
+    }
+    25% {
+    transform: translate3d(5%, 0%, 50px);
+    }
+    50% {
+      transform: translate3d(-5%, 0%, 50px);
+    }
+    100% {
+      transform: translate3d(0%, 0%, 50px);
+    }
   }
 }

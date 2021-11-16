@@ -29,43 +29,87 @@
 <body ontouchstart="">
 
   <main>
-    <form action="#" id="user-account" autocomplete="off">
-      <fieldset id="steps">
-          <section id="one">
-            <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            autocomplete="username email"
-            inputmode="email"
-            enterkeyhint="submit"
-            placeholder="your@email.com"
-            >
-            <label for="email">account e-email address</label>
+    <form action="#" id="user-account" autocomplete="on">
+      <fieldset id="fieldsetScene">
+        <div id="sections" class="email-address">
+          <section id="email-address" class="set-email">
+            <div id="set-email" class="active">
+              <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="username email"
+              inputmode="email"
+              enterkeyhint="submit"
+              placeholder="your@email.com"
+              >
+              <label for="email">account email address</label>
+            </div>
+            <div id="verify-email">
+              <input
+              type="one-time-code"
+              id="email-verification-code"
+              name="email-verification-code"
+              required
+              disabled
+              autocomplete="one-time-code"
+              inputmode="numeric"
+              enterkeyhint="submit"
+              placeholder="123456"
+              maxlength="6"
+              >
+              <label for="email-verification-code">email verification code</label>
+            </div>
           </section>
-          <section id="two">
-            <input
-            type="one-time-code"
-            id="verify-email"
-            name="email-email"
-            required
-            autocomplete="one-time-code"
-            inputmode="numeric"
-            enterkeyhint="submit"
-            placeholder="123456"
-            >
-            <label for="email">get code</label>
+          <section id="phone-number" class="set-phone">
+            <div id="set-phone" class="active">
+              <input
+              type="phone"
+              id="phone"
+              name="phone"
+              required
+              disabled
+              autocomplete="tel"
+              inputmode="numeric"
+              enterkeyhint="submit"
+              placeholder="+1234567890"
+              >
+              <label for="phone">account phone number</label>
+            </div>
+            <div id="verify-phone">
+              <input
+              type="one-time-code"
+              id="phone-verification-code"
+              name="phone-verification-code"
+              required
+              disabled
+              autocomplete="one-time-code"
+              inputmode="numeric"
+              enterkeyhint="submit"
+              placeholder="123456"
+              maxlength="6"
+              >
+              <label for="phone-verification-code">get code</label>
+            </div>
           </section>
+        </div>
       </fieldset>
-      <div id="status">
-        <p id="message">delete to go back</p>
+      <div id="statusScene">
+        <div id="info" class="notice">
+          <p id="invalid">an invalid message</p>
+          <p id="notice">clear all text to go back</p>
+          <p id="valid">a valid message</p>
+          <button type="button" id="code">get code</button>
+          <div id="left-wall"></div>
+          <div id="right-wall"></div>
+        </div>
       </div>
       <div id="navScene">
         <nav id="buttons" class="back">
-          <button type="button" id="back">back</button>
-          <button type="submit" id="submit">submit</button>
-          <button type="button" id="next">next</button>
+          <button type="button" id="back" disabled>back</button>
+          <button type="submit" id="submit" disabled>submit</button>
+          <button type="button" id="next" disabled>next</button>
           <div id="bottom"></div>
           <div id="left-wall"></div>
           <div id="right-wall"></div>
@@ -83,7 +127,7 @@
   src-2='https://picsum.photos/3840/2160'
   src-3="/public/lib/components/main-background/src/background9.jpg"
   src-4='/public/lib/components/main-background/src/placeholder.jpeg'
-  src-1="/public/lib/components/main-background/src/yellow.jpg"
+  src-1="/public/lib/components/main-background/src/923-2160.jpg"
   id="mbg"
   name="backgroundLoaded">
 </main-background>
