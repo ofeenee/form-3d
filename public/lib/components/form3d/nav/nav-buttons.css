@@ -1,0 +1,140 @@
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: 0 none;
+  border: 0 none;
+  border-radius: 0;
+}
+
+:host {
+
+  --form-width: 280px;
+  --perspective: 600px;
+
+  --transition-duration: 0.4s;
+
+  --button-height: 64px;
+  --button-height-half: 32px;
+
+  --primary-color: white;
+  --button-background-color: rgba(2, 64, 180, 0.75);
+  --button-background-color-disabled: rgba(55, 55, 55, 0.85);
+
+  --drop-shadow-color: rgba(0, 0, 0, 0.35);
+  --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
+
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+#wrapper {
+  width: 100%;
+  height: 100%;
+  perspective: inherit;
+}
+
+#navScene {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+
+  transform-style: preserve-3d;
+
+}
+
+#navScene #buttons {
+  width: 100%;
+  height: 100%;
+
+
+  transform-style: preserve-3d;
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+  transform-origin: 50% 50% -32px;
+
+}
+
+#navScene #buttons.back {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 0px);
+}
+
+#navScene #buttons.submit {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#navScene #buttons.next {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
+}
+
+
+#navScene button {
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  color: var(--primary-color);
+  background-color: var(--button-background-color);
+
+  text-rendering: optimizeLegibility !important;
+  /* text-rendering: geometricPrecision !important; */
+
+  font-size: 9pt;
+  font-weight: 700;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: auto !important;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  outline: 1px solid white;
+
+  transform-style: preserve-3d;
+
+  border: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+button:active {
+  background-color: var(--button-background-color-active) !important;
+  box-shadow: var(--inset-shadow);
+}
+
+#navScene button#back {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 32px, 32px);
+}
+#navScene button#submit {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+  z-index: 1;
+}
+#navScene button#next {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -32px, 32px);
+}
+
+button:disabled {
+  pointer-events: none !important;
+  background-color: var(--button-background-color-disabled) !important;
+}

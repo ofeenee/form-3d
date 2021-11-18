@@ -22,7 +22,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
   <script src="./js/script.js" defer></script>
   <script src="./lib/components/main-background/main-background.js" defer></script>
-  <script src="./lib/components/user-account/email/username-email.js" type="module"></script>
+  <script src="./lib/components/form3d/status/status-info.js" type="module"></script>
+  <script src="./lib/components/form3d/nav/nav-buttons.js" type="module"></script>
+  <script src="./lib/components/form3d/fieldset/fieldset-inputs.js" type="module"></script>
 
   <title>User</title>
 </head>
@@ -30,91 +32,24 @@
 
   <main>
     <form action="#" id="user-account" autocomplete="on">
-      <fieldset id="fieldsetScene">
-        <div id="sections" class="email-address">
-          <section id="email-address" class="set-email">
-            <div id="set-email" class="active">
-              <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              autocomplete="username email"
-              inputmode="email"
-              enterkeyhint="submit"
-              placeholder="your@email.com"
-              >
-              <label for="email">account email address</label>
-            </div>
-            <div id="verify-email">
-              <input
-              type="one-time-code"
-              id="email-verification-code"
-              name="email-verification-code"
-              required
-              disabled
-              autocomplete="one-time-code"
-              inputmode="numeric"
-              enterkeyhint="submit"
-              placeholder="123456"
-              maxlength="6"
-              >
-              <label for="email-verification-code">email verification code</label>
-            </div>
-          </section>
-          <section id="phone-number" class="set-phone">
-            <div id="set-phone" class="active">
-              <input
-              type="phone"
-              id="phone"
-              name="phone"
-              required
-              disabled
-              autocomplete="tel"
-              inputmode="numeric"
-              enterkeyhint="submit"
-              placeholder="+1234567890"
-              >
-              <label for="phone">account phone number</label>
-            </div>
-            <div id="verify-phone">
-              <input
-              type="one-time-code"
-              id="phone-verification-code"
-              name="phone-verification-code"
-              required
-              disabled
-              autocomplete="one-time-code"
-              inputmode="numeric"
-              enterkeyhint="submit"
-              placeholder="123456"
-              maxlength="6"
-              >
-              <label for="phone-verification-code">get code</label>
-            </div>
-          </section>
-        </div>
-      </fieldset>
-      <div id="statusScene">
-        <div id="info" class="notice">
-          <p id="invalid">an invalid message</p>
-          <p id="notice">clear all text to go back</p>
-          <p id="valid">a valid message</p>
-          <button type="button" id="code">get code</button>
-          <div id="left-wall"></div>
-          <div id="right-wall"></div>
-        </div>
-      </div>
-      <div id="navScene">
-        <nav id="buttons" class="back">
-          <button type="button" id="back" disabled>back</button>
-          <button type="submit" id="submit" disabled>submit</button>
-          <button type="button" id="next" disabled>next</button>
-          <div id="bottom"></div>
-          <div id="left-wall"></div>
-          <div id="right-wall"></div>
-        </nav>
-      </div>
+      <status-info
+        status='notice'
+        text='clear all text to go back'
+        styles='./lib/components/form3d/status/status-info.css'
+      >
+      </status-info>
+      <fieldset-inputs
+
+        styles='./lib/components/form3d/fieldset/fieldset-inputs.css'
+      >
+
+      </fieldset-inputs>
+      <nav-buttons
+        button='none'
+        status='disabled'
+        styles="./lib/components/form3d/nav/nav-buttons.css"
+      >
+      </nav-buttons>
     </form>
   </main>
 

@@ -1,0 +1,298 @@
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: 0 none;
+  border: 0 none;
+  border-radius: 0;
+}
+
+:host {
+
+  --form-width: 280px;
+  --form-height: 200px;
+
+  --transition-duration: 0.4s;
+
+  --perspective: 600px;
+
+  --primary-color: white;
+  --secondary-background-color: rgba(65, 65, 65, 0.75);
+
+  --drop-shadow-color: rgba(0, 0, 0, 0.35);
+  --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
+
+  --glow-focus: 0px 0px 6px 5px var(--glow-focus-color);
+  --shadow-focus: inset 0px 0px 6px 3px var(--shadow-focus-color);
+
+  --autofill-color: white;
+  --autofill-background-color: rgba(0, 0, 0, 0.5);
+
+  --input-height: 100px;
+  --label-height: 22px;
+
+  flex-shrink: 0;
+  flex-grow: 0;
+
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  width: var(--form-width);
+  height: var(--input-height);
+
+  perspective: var(--perspective);
+}
+
+#fieldsetScene {
+  position: relative;
+  width: var(--form-width);
+  height: var(--input-height);
+  flex-shrink: 0;
+  flex-grow: 0;
+
+}
+
+
+#fieldsetScene div#sections {
+
+  /* width: 100%; */
+  /* height: 100%; */
+  width: var(--form-width);
+  height: var(--input-height);
+
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+  transform-origin: 50% 50% -50px;
+}
+
+#fieldsetScene #sections.email-address {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene #sections.phone-number {
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
+  /* transform: perspective(var(--perspective)) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px); */
+}
+
+#fieldsetScene #sections section {
+  position: absolute;
+
+  /* perspective: var(--perspective); */
+  /* transform-style: preserve-3d; */
+  /* backface-visibility: hidden; */
+  /* -webkit-backface-visibility: hidden; */
+
+
+  width: var(--form-width);
+  height: var(--input-height);
+
+  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+
+
+
+  outline: 1px solid white;
+
+
+}
+
+
+#fieldsetScene section#email-address {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+
+#fieldsetScene section#phone-number {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -50px, 50px) !important;
+}
+
+#fieldsetScene section#email-address {
+  /* display: none; */
+}
+
+#fieldsetScene section#phone-number {
+  /* display: none; */
+}
+
+#fieldsetScene section div {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  transform-style: preserve-3d;
+
+  /* width: var(--form-width); */
+  /* height: var(--input-height); */
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  width: var(--form-width);
+  height: var(--input-height);
+}
+
+
+#fieldsetScene section#email-address > div#set-email {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+
+#fieldsetScene section#email-address > div#verify-email {
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px) !important;
+}
+
+
+#fieldsetScene section#email-address.set-email {
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+#fieldsetScene section#email-address.verify-email {
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px) !important;
+}
+
+/*
+//////////////////////////////////
+*/
+
+#fieldsetScene section#phone-number > div#set-phone {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#phone-number > div#verify-phone {
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
+}
+
+
+#fieldsetScene section#phone-number.set-phone {
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+#fieldsetScene section#phone-number.verify-phone {
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
+}
+
+
+
+#fieldsetScene section div input {
+  /* width: var(--form-width); */
+  /* height: var(--input-height); */
+
+  width: var(--form-width);
+  height: var(--input-height);
+
+  padding: 15px 25px var(--label-height) 25px;
+
+  color: var(--primary-color);
+  background-color: var(--secondary-background-color);
+
+
+  font-size: 12pt;
+  font-weight: 500;
+
+  text-align: center;
+  text-transform: lowercase;
+
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+
+
+#fieldsetScene section input::placeholder {
+  opacity: 0.45 !important;
+  color: var(--primary-color);
+
+  font-weight: 300;
+}
+
+#fieldsetScene section input:focus {
+  box-shadow: var(--glow-focus);
+}
+
+
+
+#fieldsetScene section input:autofill {
+  filter: brightness(.5) grayscale(0) invert(1) saturate(19) hue-rotate(310deg) opacity(.65) !important;
+}
+
+#fieldsetScene section input:autofill + label {
+  color: var(--autofill-color) !important;
+  font-weight: 500;
+}
+
+#fieldsetScene section input:-webkit-autofill {
+  filter: brightness(.7) grayscale(0) invert(1) saturate(19) hue-rotate(180deg) opacity(.65);
+}
+#fieldsetScene section input:-webkit-autofill + label{
+  color: var(--autofill-color);
+}
+
+#fieldsetScene section input:-moz-autofill {
+  filter: brightness(.7) grayscale(0) invert(1) saturate(19) hue-rotate(180deg) opacity(.65);
+}
+#fieldsetScene section input:-moz-autofill + label{
+  color: var(--autofill-color);
+}
+
+#fieldsetScene section label {
+  position: absolute;
+  height: (var(--input-height) - var(--label-height));
+  width: calc(var(--form-width) - var(--label-height));
+
+  padding-top: 5px;
+
+  bottom: var(--label-height);
+  color: var(--primary-color);
+  opacity: 1;
+
+  border-top: 1px dotted var(--primary-color);
+
+  font-size: 7pt;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+
+
+
+
+#fieldsetScene #email-verification-code, #fieldsetScene #phone-verification-code {
+  letter-spacing: 14pt;
+  font-size: 18pt !important;
+  padding-left: 45px !important;
+  padding-bottom: 28px !important;
+}

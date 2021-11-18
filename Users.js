@@ -28,7 +28,7 @@ const codePrefix = 'code:';
 Users.post('/get/email', loadUserByEmail, checkUserEmailVerification, async function(req, res) {
   try {
     const { user } = req;
-    return res.status(200).json({ existing: user.returning, verified: user.verified});
+    return res.status(200).json({ returning: user.returning, verified: user.verified});
     // TODO
     // if existing do this
     // if new do that
