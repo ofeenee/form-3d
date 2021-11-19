@@ -49,9 +49,9 @@ class statusInfo extends HTMLElement {
   }
 
   connectedCallback() {
-    this.classList.add('status-info-connected');
+    this.classList.add('idle-rotate');
 
-    console.info('••• element is connected:', this);
+    console.info('••• element is connected:', this.tagName);
   }
 
   disconnectedCallback() {

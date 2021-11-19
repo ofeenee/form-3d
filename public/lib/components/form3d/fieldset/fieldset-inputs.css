@@ -39,6 +39,18 @@
 
 }
 
+.idle-rotate {
+  animation-name: idle-rotate;
+  animation-duration: 60s;
+  animation-delay: 0.5s;
+  animation-direction: normal;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
+}
+
+
 #wrapper {
   display: flex;
   flex-direction: column;
@@ -60,6 +72,7 @@
   flex-shrink: 0;
   flex-grow: 0;
 
+  perspective: inherit;
 }
 
 
@@ -71,8 +84,6 @@
   height: var(--input-height);
 
   transform-style: preserve-3d;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 
   transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
   transform-origin: 50% 50% -50px;
@@ -84,7 +95,14 @@
 
 #fieldsetScene #sections.phone-number {
   transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
-  /* transform: perspective(var(--perspective)) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px); */
+}
+
+#fieldsetScene #sections.authenticator {
+  transform: rotate3d(1, 0, 0, -180deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene #sections.password {
+  transform: rotate3d(1, 0, 0, -270deg) translate3d(0px, 0px, 0px);
 }
 
 #fieldsetScene #sections section {
@@ -92,14 +110,25 @@
 
   /* perspective: var(--perspective); */
   /* transform-style: preserve-3d; */
-  /* backface-visibility: hidden; */
-  /* -webkit-backface-visibility: hidden; */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
 
   width: var(--form-width);
   height: var(--input-height);
 
-  transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
+  /*
+    TODO:
+    transition rule is important.
+
+    it is required to flip inputs
+    between set and verify fields
+    of each section.
+
+    maybe wrap each in a div?
+  */
+
+  /* transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out; */
 
 
 
@@ -117,13 +146,13 @@
   transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -50px, 50px) !important;
 }
 
-#fieldsetScene section#email-address {
-  /* display: none; */
+#fieldsetScene section#authenticator {
+  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 100px) !important;
+}
+#fieldsetScene section#password {
+  transform: rotate3d(1, 0, 0, 270deg) translate3d(0px, 50px, 50px) !important;
 }
 
-#fieldsetScene section#phone-number {
-  /* display: none; */
-}
 
 #fieldsetScene section div {
   position: absolute;
@@ -148,19 +177,19 @@
 
 
 #fieldsetScene section#email-address > div#set-email {
-  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
 }
 
 #fieldsetScene section#email-address > div#verify-email {
-  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px) !important;
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
 }
 
 
 #fieldsetScene section#email-address.set-email {
-  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
 }
 #fieldsetScene section#email-address.verify-email {
-  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px) !important;
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
 }
 
 /*
@@ -180,6 +209,37 @@
   transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
 }
 #fieldsetScene section#phone-number.verify-phone {
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#authenticator > div#set-authenticator {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#authenticator > div#verify-authenticator {
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#authenticator.set-authenticator {
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+#fieldsetScene section#authenticator.verify-authenticator {
+  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
+}
+
+
+#fieldsetScene section#password > div#set-password {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#password > div#verify-password {
+  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
+}
+
+#fieldsetScene section#password.set-password {
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+#fieldsetScene section#password.verify-password {
   transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
 }
 
@@ -213,10 +273,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
-
+input:disabled {
+  opacity: .45 !important;
+}
 
 
 #fieldsetScene section input::placeholder {
@@ -295,4 +356,70 @@
   font-size: 18pt !important;
   padding-left: 45px !important;
   padding-bottom: 28px !important;
+}
+
+
+@keyframes idle-rotate {
+  0% {
+    transform: rotateX(2880deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+
+
+
+
+@supports selector(:nth-child(1 of x)) {
+  #wrapper {
+  }
+/*
+  #statusScene {
+    -webkit-transform-style: preserve-3d !important;
+  }
+
+  #statusScene #info {
+    -webkit-transform-origin: 50% 50% 0px !important;
+  }
+
+
+  #statusScene #info.valid {
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, 0deg) !important;
+  }
+
+  #statusScene #info.notice {
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -90deg) !important;
+  }
+
+  #statusScene #info.invalid {
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -180deg) !important;
+  }
+
+  #statusScene #info.code {
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -270deg) !important;
+    -webkit-transform-style: preserve-3d !important;
+  }
+ */
+
+
+#fieldsetScene section#email-address {
+  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
+}
+
+#fieldsetScene section#phone-number {
+  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 90deg) translate3d(0px, -50px, 50px) !important;
+}
+
+#fieldsetScene section#authenticator {
+  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 100px) !important;
+}
+#fieldsetScene section#password {
+  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 270deg) translate3d(0px, 50px, 50px) !important;
+}
+
+
+
+
 }

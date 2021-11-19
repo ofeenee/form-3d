@@ -9,6 +9,7 @@ template.innerHTML = `
       <button type="button" id="back" disabled>back</button>
       <button type="submit" id="submit" disabled>submit</button>
       <button type="button" id="next" disabled>next</button>
+      <button type="button" id="reset" disabled>reset</button>
     </nav>
   </div>
 </div>
@@ -17,7 +18,7 @@ template.innerHTML = `
 
 class NavButtons extends HTMLElement {
   static get observedAttributes() {
-    return ['button'];
+    return ['button', 'class', 'status', 'styles'];
   }
 
   constructor() {
@@ -55,7 +56,8 @@ class NavButtons extends HTMLElement {
   }
 
   connectedCallback() {
-    console.info('••• element is connected:', this);
+    this.className = 'idle-rotate';
+    console.info('••• element is connected:', this.tagName);
   }
 
   disconnectedCallback() {
@@ -84,6 +86,7 @@ class NavButtons extends HTMLElement {
       const back = this.shadowRoot.querySelector('button#back');
       const submit = this.shadowRoot.querySelector('button#submit');
       const next = this.shadowRoot.querySelector('button#next');
+      const reset = this.shadowRoot.querySelector('button#reset');
 
 
       switch (name) {
@@ -104,11 +107,16 @@ class NavButtons extends HTMLElement {
               nav.className = 'next';
               next.removeAttribute('disabled');
               break;
+            case 'reset':
+              nav.className = 'reset';
+              next.removeAttribute('disabled');
+              break;
             case 'none':
               nav.className = 'back';
               back.setAttribute('disabled', 'true');
               submit.setAttribute('disabled', 'true');
               next.setAttribute('disabled', 'true');
+              reset.setAttribute('disabled', 'true');
               break;
 
             default:
@@ -138,9 +146,14 @@ class NavButtons extends HTMLElement {
           stylesheet.setAttribute('href', newValue);
           break;
         //////////////////////////////////
+        case 'class':
+          nav.className = newValue;
+          break;
+        //////////////////////////////////
         default:
           throw new Error(`${name} attribute is invalid`);
           break;
+
       }
     }
     catch (error) {

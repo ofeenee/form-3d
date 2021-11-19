@@ -32,8 +32,8 @@
 
 }
 
-.status-info-connected {
-  animation-name: status-info-connected;
+.idle-rotate {
+  animation-name: idle-rotate;
   animation-duration: 60s;
   animation-delay: 0.5s;
   animation-direction: normal;
@@ -214,7 +214,7 @@ button:active {
     }
   }
 
-@keyframes status-info-connected {
+@keyframes idle-rotate {
   0% {
     transform: rotateX(2880deg);
   }
@@ -226,6 +226,8 @@ button:active {
 
 
 @supports selector(:nth-child(1 of x)) {
+  #wrapper {
+  }
   #statusScene {
     -webkit-transform-style: preserve-3d !important;
   }
@@ -233,7 +235,6 @@ button:active {
   #statusScene #info {
     /* margin: 0 !important; */
     -webkit-transform-origin: 50% 50% 0px !important;
-    /* -webkit-transform-style: preserve-3d !important; */
   }
 
 
@@ -258,26 +259,26 @@ button:active {
   #statusScene #info #valid {
     /* margin: 0 !important; */
     -webkit-transform-origin: 50% 50% 0px !important;
-    -webkit-transform: translate3d(0px, 0px, 18px) rotate3d(1, 0, 0, 0deg) !important;
+    -webkit-transform: scale3d(0.971, 0.971, 0.971) translate3d(0px, 0px, 18px) rotate3d(1, 0, 0, 0deg) !important;
   }
 
   #statusScene #info #notice {
     /* margin: 0 !important; */
     -webkit-transform-origin: 50% 50% 0px !important;
-    -webkit-transform: translate3d(0px, 18px, 0px) rotate3d(1, 0, 0, -90deg) !important;
+    -webkit-transform: scale3d(0.971, 0.971, 0.971) translate3d(0px, 18px, 0px) rotate3d(1, 0, 0, -90deg) !important;
   }
 
   #statusScene #info #invalid {
     /* margin: 0 !important; */
     -webkit-transform-origin: 50% 50% 0px !important;
-    -webkit-transform: translate3d(0px, 0px, -18px) rotate3d(1, 0, 0, -180deg) !important;
+    -webkit-transform: scale3d(0.971, 0.971, 0.971) translate3d(0px, 0px, -18px) rotate3d(1, 0, 0, -180deg) !important;
     /* display: none; */
   }
 
   #statusScene #info #code {
     /* margin: 0 !important; */
     -webkit-transform-origin: 50% 50% 0px !important;
-    -webkit-transform: translate3d(0px, -18px, 0px) rotate3d(1, 0, 0, -270deg) !important;
+    -webkit-transform: scale3d(0.971, 0.971, 0.971) translate3d(0px, -18px, 0px) rotate3d(1, 0, 0, -270deg) !important;
     /* display: none; */
   }
 
