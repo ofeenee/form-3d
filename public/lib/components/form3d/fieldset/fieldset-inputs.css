@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+/*************************
+        RESET
+*************************/
 *, *:before, *:after {
   margin: 0;
   padding: 0;
@@ -8,19 +14,19 @@
   outline: 0 none;
   border: 0 none;
   border-radius: 0;
+  font-family: "roboto", Arial, Helvetica, sans-serif;
+
 }
 
 :host {
-
-  --form-width: 280px;
-  --form-height: 200px;
-
-  --transition-duration: 0.4s;
+  --transition-duration: .4s;
+  --transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
 
   --perspective: 600px;
 
   --primary-color: white;
-  --secondary-background-color: rgba(65, 65, 65, 0.75);
+  --secondary-background-color: rgba(65, 65, 65, 0.65);
+  --secondary-background-color-disabled: rgba(102, 102, 102, 0.212);
 
   --drop-shadow-color: rgba(0, 0, 0, 0.35);
   --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
@@ -32,6 +38,8 @@
   --autofill-background-color: rgba(0, 0, 0, 0.5);
 
   --input-height: 100px;
+  --input-thickness: 5px;
+
   --label-height: 22px;
 
   flex-shrink: 0;
@@ -51,212 +59,323 @@
 }
 
 
-#wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 0;
-  flex-shrink: 0;
-
+/*************************
+        FORM (or :host)
+*************************/
+/* form {
+  position: relative;
+  height: var(--form-height);
   width: var(--form-width);
-  height: var(--input-height);
 
+} */
+
+
+/*************************
+        #FIELDSET
+*************************/
+
+#fieldset {
   perspective: var(--perspective);
 }
 
-#fieldsetScene {
-  position: relative;
-  width: var(--form-width);
-  height: var(--input-height);
-  flex-shrink: 0;
-  flex-grow: 0;
+/*************************
+        #SECTIONS
+*************************/
 
-  perspective: inherit;
-}
+#sections {
 
-
-#fieldsetScene div#sections {
-
-  /* width: 100%; */
-  /* height: 100%; */
   width: var(--form-width);
   height: var(--input-height);
 
   transform-style: preserve-3d;
 
+
   transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out;
   transform-origin: 50% 50% -50px;
+
 }
 
-#fieldsetScene #sections.email-address {
+
+
+#sections.email-address-dev {
+  transform: rotate3d(1, 1, 0, 45deg) translate3d(0px, 0px, 0px);
+}
+
+#sections.email-address {
   transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
 }
 
-#fieldsetScene #sections.phone-number {
+#sections.phone-number-dev {
+  transform: rotate3d(1, 0, 1, 155deg) translate3d(0px, 0px, 0px);
+}
+
+#sections.phone-number {
   transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
 }
 
-#fieldsetScene #sections.authenticator {
+#sections.authenticator-dev {
+  transform: rotate3d(1, 0, 1, -180deg) translate3d(0px, 0px, 0px);
+}
+#sections.authenticator {
   transform: rotate3d(1, 0, 0, -180deg) translate3d(0px, 0px, 0px);
 }
 
-#fieldsetScene #sections.password {
+#sections.password {
   transform: rotate3d(1, 0, 0, -270deg) translate3d(0px, 0px, 0px);
 }
 
-#fieldsetScene #sections section {
+
+/*************************
+    #SECTIONS > DIV
+*************************/
+#sections > div {
   position: absolute;
 
-  /* perspective: var(--perspective); */
-  /* transform-style: preserve-3d; */
+  transform-style: preserve-3d;
+
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-
 
   width: var(--form-width);
   height: var(--input-height);
 
-  /*
-    TODO:
-    transition rule is important.
 
-    it is required to flip inputs
-    between set and verify fields
-    of each section.
+}
 
-    maybe wrap each in a div?
-  */
+/*************************
+      #email-address
+*************************/
+#sections > #email-address {
+  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, calc(var(--input-thickness) * -1));
+}
 
-  /* transition: transform var(--transition-duration) ease-in-out, opacity var(--transition-duration) ease-in-out; */
+/*************************
+      #phone-number
+*************************/
+#sections > #phone-number {
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, calc((var(--input-height) / 2)  * -1), calc((var(--input-height) / 2 * 1) + var(--input-thickness) * -1));
+}
 
+
+/*************************
+      #authenticator
+*************************/
+#sections > #authenticator {
+  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, calc((var(--input-height)) - var(--input-thickness) * 1));
+}
+
+/*************************
+      #password
+*************************/
+#sections > #password {
+  transform: rotate3d(1, 0, 0, 270deg) translate3d(0px, calc(var(--input-height) / 2), calc((var(--input-height) / 2) + var(--input-thickness) * -1));
+}
+
+
+/*************************
+        #WRAPPER
+*************************/
+
+#wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+
+
+  transition: transform var(--transition-duration) var(--transition-timing-function), opacity var(--transition-duration) var(--transition-timing-function);
+}
+
+div, section {
+  /* backface-visibility: hidden !important; */
+  /* -webkit-backface-visibility: hidden !important; */
+}
+
+#wrapper.set {
+  transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+}
+
+#wrapper.verify {
+  transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, -180deg);
+}
+
+#wrapper.set #verify {
+  opacity: .2;
+}
+
+#wrapper.set #set {
+  /* backface-visibility: hidden; */
+  /* -webkit-backface-visibility: hidden; */
+}
+
+#wrapper.verify #verify {
+  /* backface-visibility: hidden; */
+  /* -webkit-backface-visibility: hidden; */
+}
+
+#wrapper.verify #set {
+  opacity: .2;
+}
+
+#wrapper section {
+  position: absolute;
+
+  width: 100%;
+  height: var(--input-height);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  perspective: none;
+
+  opacity: .8;
+
+  transition: opacity var(--transition-duration) ease-in-out;
+
+  outline: 1px solid white;
+}
+
+
+#set {
+  transform: translate3d(0, 0, calc(var(--input-thickness) * 1)) rotateY(0deg);
+}
+#verify {
+  transform: translate3d(0, 0, calc(var(--input-thickness) * -1)) rotateY(-180deg);
+}
+
+
+/*************************
+      #verify > INPUT
+*************************/
+
+input[autocomplete="one-time-code"] {
+  letter-spacing: 14pt;
+  font-size: 18pt !important;
+  padding-left: 45px !important;
+  padding-bottom: 28px !important;
+  text-align: center;
+}
+
+
+
+/*************************
+      DIV.#RIGHT-PLANE
+*************************/
+#wrapper #ceiling {
+  position: absolute;
+  width: var(--form-width);
+  height: calc(var(--input-thickness) * 2);
+
+  background-color: var(--secondary-background-color);
+
+  transform-style: preserve-3d;
+
+  transform: translate3d(0px, calc((var(--input-height) / 2) * -1), 0px) rotate3d(1, 0, 0, 90deg);
+
+  opacity: .65;
 
 
   outline: 1px solid white;
-
-
 }
 
-
-#fieldsetScene section#email-address {
-  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
-}
-
-#fieldsetScene section#phone-number {
-  transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, -50px, 50px) !important;
-}
-
-#fieldsetScene section#authenticator {
-  transform: rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 100px) !important;
-}
-#fieldsetScene section#password {
-  transform: rotate3d(1, 0, 0, 270deg) translate3d(0px, 50px, 50px) !important;
-}
-
-
-#fieldsetScene section div {
+#wrapper #right-plane {
   position: absolute;
+  width: calc(var(--input-thickness) * 2);
+  height: var(--input-height);
+
+  background-color: var(--secondary-background-color);
+
+  transform-style: preserve-3d;
+
+  transform: translate3d(140px, 0, 0px) rotate3d(0, 1, 0, 90deg);
+
+  opacity: .65;
+
+
+  outline: 1px solid white;
+}
+
+/*************************
+      DIV.#RIGHT-PLANE
+*************************/
+#wrapper #left-plane {
+  position: absolute;
+  width: calc(var(--input-thickness) * 2);
+  height: var(--input-height);
+
+  background-color: var(--secondary-background-color);
+
+  transform-style: preserve-3d;
+
+  transform: translate3d(-140px, 0, 0px) rotate3d(0, 1, 0, 90deg);
+
+  opacity: .65;
+
+  outline: 1px solid white;
+}
+
+#wrapper #floor {
+  position: absolute;
+  width: var(--form-width);
+  height: calc(var(--input-thickness) * 2);
+
+  background-color: var(--secondary-background-color);
+
+  transform-style: preserve-3d;
+
+  transform: translate3d(0px, calc((var(--input-height) / 2) * 1), 0px) rotate3d(1, 0, 0, -90deg);
+
+  opacity: .65;
+
+
+  outline: 1px solid white;
+}
+
+
+/*************************
+      DIV.INPUT
+*************************/
+div.input {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-
-  transform-style: preserve-3d;
-
-  /* width: var(--form-width); */
-  /* height: var(--input-height); */
-
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-
-  width: var(--form-width);
-  height: var(--input-height);
+  background-color: var(--secondary-background-color);
 }
 
+/*************************
+        INPUT
+*************************/
 
-#fieldsetScene section#email-address > div#set-email {
-  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
-}
+input {
+  position: absolute;
 
-#fieldsetScene section#email-address > div#verify-email {
-  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
-}
-
-
-#fieldsetScene section#email-address.set-email {
-  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-#fieldsetScene section#email-address.verify-email {
-  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
-}
-
-/*
-//////////////////////////////////
-*/
-
-#fieldsetScene section#phone-number > div#set-phone {
-  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-
-#fieldsetScene section#phone-number > div#verify-phone {
-  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
-}
-
-
-#fieldsetScene section#phone-number.set-phone {
-  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-#fieldsetScene section#phone-number.verify-phone {
-  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
-}
-
-#fieldsetScene section#authenticator > div#set-authenticator {
-  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-
-#fieldsetScene section#authenticator > div#verify-authenticator {
-  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
-}
-
-#fieldsetScene section#authenticator.set-authenticator {
-  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-#fieldsetScene section#authenticator.verify-authenticator {
-  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
-}
-
-
-#fieldsetScene section#password > div#set-password {
-  transform: rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-
-#fieldsetScene section#password > div#verify-password {
-  transform: rotate3d(0, 1, 0, -180deg) translate3d(0px, 0px, 0px);
-}
-
-#fieldsetScene section#password.set-password {
-  transform: rotate3d(0, 1, 0, 0deg) translate3d(0px, 0px, 0px);
-}
-#fieldsetScene section#password.verify-password {
-  transform: rotate3d(0, 1, 0, 180deg) translate3d(0px, 0px, 0px);
-}
-
-
-
-#fieldsetScene section div input {
-  /* width: var(--form-width); */
-  /* height: var(--input-height); */
-
-  width: var(--form-width);
-  height: var(--input-height);
-
+  width: 100%;
+  height: 100%;
   padding: 15px 25px var(--label-height) 25px;
 
   color: var(--primary-color);
-  background-color: var(--secondary-background-color);
+  background-color: transparent;
 
+  letter-spacing: 1px;
 
   font-size: 12pt;
   font-weight: 500;
@@ -269,56 +388,55 @@
   -webkit-appearance: none;
   -moz-appearance: none;
 
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 input:disabled {
-  opacity: .45 !important;
+  background-color: var(--secondary-background-color-disabled) !important;
 }
 
 
-#fieldsetScene section input::placeholder {
+input::placeholder {
   opacity: 0.45 !important;
   color: var(--primary-color);
 
   font-weight: 300;
 }
 
-#fieldsetScene section input:focus {
+input:focus {
   box-shadow: var(--glow-focus);
 }
 
-
-
-#fieldsetScene section input:autofill {
+input:autofill {
   filter: brightness(.5) grayscale(0) invert(1) saturate(19) hue-rotate(310deg) opacity(.65) !important;
 }
 
-#fieldsetScene section input:autofill + label {
+input:autofill + label {
   color: var(--autofill-color) !important;
   font-weight: 500;
 }
 
-#fieldsetScene section input:-webkit-autofill {
+input:-webkit-autofill {
   filter: brightness(.7) grayscale(0) invert(1) saturate(19) hue-rotate(180deg) opacity(.65);
 }
-#fieldsetScene section input:-webkit-autofill + label{
+input:-webkit-autofill + label{
   color: var(--autofill-color);
 }
 
-#fieldsetScene section input:-moz-autofill {
+input:-moz-autofill {
   filter: brightness(.7) grayscale(0) invert(1) saturate(19) hue-rotate(180deg) opacity(.65);
 }
-#fieldsetScene section input:-moz-autofill + label{
+input:-moz-autofill + label{
   color: var(--autofill-color);
 }
 
-#fieldsetScene section label {
+
+/*************************
+        LABEL
+*************************/
+
+label {
   position: absolute;
-  height: (var(--input-height) - var(--label-height));
+  /* height: (var(--input-height) - var(--label-height)); */
   width: calc(var(--form-width) - var(--label-height));
 
   padding-top: 5px;
@@ -336,28 +454,54 @@ input:disabled {
   text-align: center;
   white-space: nowrap;
 
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
 
 
+/* Targets Safari  */
+@supports selector(:nth-child(1 of x)) {
+
+  /*************************
+        #email-address
+  *************************/
+  #sections > #email-address {
+    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, calc(var(--input-thickness) * -1)) !important;
+  }
+
+  /*************************
+        #phone-number
+  *************************/
+  #sections > #phone-number {
+    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 90deg) translate3d(0px, calc((var(--input-height) / 2)  * -1), calc((var(--input-height) / 2 * 1) + var(--input-thickness) * -1)) !important;
+  }
+
+
+  /*************************
+        #authenticator
+  *************************/
+  #sections > #authenticator {
+    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, calc((var(--input-height)) - var(--input-thickness) * 1)) !important;
+  }
+
+  /*************************
+        #password
+  *************************/
+  #sections > #password {
+    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 270deg) translate3d(0px, calc(var(--input-height) / 2), calc((var(--input-height) / 2) + var(--input-thickness) * -1)) !important;
+  }
 
 
 
-#fieldsetScene #email-verification-code, #fieldsetScene #phone-verification-code {
-  letter-spacing: 14pt;
-  font-size: 18pt !important;
-  padding-left: 45px !important;
-  padding-bottom: 28px !important;
 }
 
+
+
+
+/*************************
+        ANIMATIONS
+*************************/
 
 @keyframes idle-rotate {
   0% {
@@ -368,58 +512,34 @@ input:disabled {
   }
 }
 
-
-
-
-
-@supports selector(:nth-child(1 of x)) {
-  #wrapper {
-  }
-/*
-  #statusScene {
-    -webkit-transform-style: preserve-3d !important;
-  }
-
-  #statusScene #info {
-    -webkit-transform-origin: 50% 50% 0px !important;
-  }
-
-
-  #statusScene #info.valid {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, 0deg) !important;
-  }
-
-  #statusScene #info.notice {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -90deg) !important;
-  }
-
-  #statusScene #info.invalid {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -180deg) !important;
-  }
-
-  #statusScene #info.code {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -270deg) !important;
-    -webkit-transform-style: preserve-3d !important;
-  }
- */
-
-
-#fieldsetScene section#email-address {
-  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px) !important;
-}
-
-#fieldsetScene section#phone-number {
-  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 90deg) translate3d(0px, -50px, 50px) !important;
-}
-
-#fieldsetScene section#authenticator {
-  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, 100px) !important;
-}
-#fieldsetScene section#password {
-  transform: scale3d(0.917, 0.917, 0.917) rotate3d(1, 0, 0, 270deg) translate3d(0px, 50px, 50px) !important;
+.idle-rotate {
+  animation-name: idle-rotate;
+  animation-duration: 60s;
+  animation-delay: 0.5s;
+  animation-direction: normal;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
 }
 
 
+@keyframes idle-flip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
 
+.idle-flip {
 
+  animation-name: idle-flip;
+  /* animation-timing-function: ease-in-out; */
+  animation-timing-function: var(--transition-timing-function);
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
 }

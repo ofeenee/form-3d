@@ -29,11 +29,7 @@ main {
   grid-area: m;
 
   justify-self: center;
-  align-self: center;
-  /* border: 1px solid yellow; */
-  /* width: 450px; */
-
-  height: 200px;
+  align-self: start;
 }
 
 footer {

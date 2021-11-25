@@ -28,7 +28,7 @@ form {
   z-index: 1;
   gap: 35px;
 
-  outline: 1px solid magenta;
+  /* outline: 1px solid magenta; */
 }
 
 .animate__zoomIn {
@@ -44,21 +44,23 @@ form {
 
 
 status-info {
-  width: 100%;
+  /* --width: 560px !important; */
   height: 36px !important;
   opacity: .5;
 }
 
 fieldset-inputs {
-  perspective: 600px;
+  /* perspective: 600px; */
   width: 100%;
   height: 100px;
+  opacity: .5;
 }
 
 nav-buttons {
   perspective: 600px;
   width: 100%;
   height: 64px;
+  opacity: .5;
 }
 
 

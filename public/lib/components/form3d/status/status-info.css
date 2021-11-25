@@ -13,7 +13,7 @@
 :host {
   --primary-color: white;
 
-  --width: calc(100%);
+  --width: 280px;
   --height: 36px !important;
 
   --perspective: 600px;
@@ -29,7 +29,6 @@
   --info-color-valid: rgba(9, 167, 35, 0.85);
   --info-color-invalid: rgba(255, 48, 48, 0.85);
 
-
 }
 
 .idle-rotate {
@@ -44,6 +43,7 @@
 }
 
 #wrapper {
+
   width: var(--width);
   height: var(--height);
 
@@ -59,6 +59,11 @@
   height: 100%;
   flex-shrink: 0;
   flex-grow: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   transform-style: preserve-3d;
 }

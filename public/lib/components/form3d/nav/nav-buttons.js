@@ -126,6 +126,7 @@ class NavButtons extends HTMLElement {
           break;
         //////////////////////////////////
         case 'status':
+          if (!['back', 'submit', 'next', 'reset'].includes(newValue)) return;
           const button = this.shadowRoot.querySelector(`button#${newValue}`);
           switch (newValue) {
             case 'disabled':
@@ -134,6 +135,12 @@ class NavButtons extends HTMLElement {
               break;
             case 'enabled':
               button.removeAttribute('disabled');
+              break;
+            case 'none':
+              back.setAttribute('disabled', 'true');
+              submit.setAttribute('disabled', 'true');
+              next.setAttribute('disabled', 'true');
+              reset.setAttribute('disabled', 'true');
               break;
             default:
               throw new Error(`${name} value is invalid`);
@@ -157,7 +164,8 @@ class NavButtons extends HTMLElement {
       }
     }
     catch (error) {
-      console.info(error.message);
+      throw error;
+      // console.info(error.message);
       // setStatus({className: 'invalid', message: error.message});
     }
   }
