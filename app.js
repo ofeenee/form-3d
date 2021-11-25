@@ -13,7 +13,12 @@ app.use(cors());
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+
+// main public folder
 app.use(express.static('public'));
+
+// background images.
+app.use('/bg', express.static('public/lib/components/main-background/src'));
 
 
 app.use('/users', users);
