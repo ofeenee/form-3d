@@ -15,7 +15,7 @@ template.innerHTML = `
 
 class statusInfo extends HTMLElement {
   static get observedAttributes() {
-    return ['status', 'text', 'class'];
+    return ['status', 'text', 'class', 'idle'];
   }
 
   constructor() {
@@ -49,7 +49,6 @@ class statusInfo extends HTMLElement {
   }
 
   connectedCallback() {
-    this.classList.add('idle-rotate');
 
     console.info('••• element is connected:', this.tagName);
   }
@@ -62,32 +61,58 @@ class statusInfo extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     try {
-      const classNames = ['valid', 'invalid', 'notice', 'code'];
+      this.removeAttribute('error');
+
+      const wrapper = this.shadowRoot.querySelector('#wrapper');
+      wrapper.classList.remove('error-shake');
+
       const info = this.shadowRoot.querySelector('#info');
+
       switch (name) {
         case 'status':
-          if (classNames.includes(newValue)) {
-          info.className = newValue;
-          }
-          else {
-            throw new Error('className is invalid.');
+          switch (newValue) {
+            case "valid":
+              info.className = 'valid';
+              break;
+            case "invalid":
+              info.className = 'invalid';
+              break;
+            case "notice":
+              info.className = 'notice';
+              break;
+            case "code":
+              info.className = 'code';
+              break;
+            default:
+              return this.setAttribute('error', 'status only accepts "valid", "invalid", "notice", and "code" as values.');
+              break;
           }
 
           break;
         case 'text':
-          if (classNames.includes(info.className)) {
-            const element = info.querySelector(`#${info.className || 'null'}`);
-            if (element) {
-              if (info.className === 'invalid') {
-                const wrapper = this.shadowRoot.querySelector('#wrapper');
-                wrapper.className = 'error-shake';
-              }
+          const status = this.getAttribute('status');
+          switch (status) {
+            case "invalid":
+              const invalid = this.shadowRoot.querySelector('#invalid');
+              invalid.textContent = newValue;
 
-              element.textContent = newValue;
-            }
-          }
-          else {
-            throw new Error('className is invalid.');
+              wrapper.classList.add('error-shake');
+              break;
+            case "valid":
+              const valid = this.shadowRoot.querySelector('#valid');
+              valid.textContent = newValue;
+              break;
+            case "notice":
+              const notice = this.shadowRoot.querySelector('#notice');
+              notice.textContent = newValue;
+              break;
+            case "code":
+              const code = this.shadowRoot.querySelector('#code');
+              code.textContent = newValue;
+              break;
+            default:
+              return this.setAttribute('error', 'status value is invalid. status needs to have one of the following values: "valid", "invalid", "notice", and "code".');
+              break;
           }
           break;
         case 'class':
@@ -97,10 +122,20 @@ class statusInfo extends HTMLElement {
           const stylesheet = template.content.querySelector('link');
           stylesheet.setAttribute('href', newValue);
           break;
-
+        case 'idle':
+          switch (newValue) {
+            case "true":
+              wrapper.classList.add('idle-rotate');
+              break;
+            case "false":
+              wrapper.classList.remove('idle-rotate');
+              break;
+            default:
+              return this.setAttribute('error', 'the idle attribute only accepts "true" and "false" as values.');
+              break;
+          }
         default:
-          // info.className = 'invalid';
-          throw new Error(`Unknown attribute: ${name}`);
+          return this.setAttribute('error', 'the only valid attributes are "status", "text", "class", "styles", and "idle".');
           break;
       }
     }

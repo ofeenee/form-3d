@@ -112,7 +112,7 @@
 
 
 .error-shake {
-  animation: .1s ease-in-out 2 0.25s normal running error_shake;
+  animation: .1s ease-in-out 2 0.25s normal running error-shake;
 }
 
 p, button {
@@ -248,15 +248,15 @@ button:active {
   }
 
   #statusScene #info.notice {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -90deg) !important;
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, 90deg) !important;
   }
 
   #statusScene #info.invalid {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -180deg) !important;
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, 180deg) !important;
   }
 
   #statusScene #info.code {
-    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, -270deg) !important;
+    -webkit-transform: translate3d(0px, 0px, 0px) rotate3d(1, 0, 0, 270deg) !important;
     -webkit-transform-style: preserve-3d !important;
   }
 
