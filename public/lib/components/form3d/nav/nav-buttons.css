@@ -23,6 +23,7 @@
   --primary-color: white;
   --button-background-color: rgba(2, 64, 180, 0.75);
   --button-background-color-disabled: rgba(55, 55, 55, 0.85);
+  --button-background-color-active: rgba(1, 49, 138, 0.75);
 
   --drop-shadow-color: rgba(0, 0, 0, 0.35);
   --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
@@ -162,7 +163,7 @@ button:active {
 button:disabled {
   pointer-events: none !important;
   background-color: var(--button-background-color-disabled) !important;
-  opacity: .45 !important;
+  /* opacity: .85 !important; */
 }
 
 

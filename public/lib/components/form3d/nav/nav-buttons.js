@@ -18,7 +18,7 @@ template.innerHTML = `
 
 class NavButtons extends HTMLElement {
   static get observedAttributes() {
-    return ['button', 'class', 'status', 'styles'];
+    return ['button', 'class', 'status', 'styles', 'idle'];
   }
 
   constructor() {
@@ -56,7 +56,6 @@ class NavButtons extends HTMLElement {
   }
 
   connectedCallback() {
-    this.className = 'idle-rotate';
     console.info('••• element is connected:', this.tagName);
   }
 
@@ -68,6 +67,8 @@ class NavButtons extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     try {
+
+      this.removeAttribute('error');
 
       const buttons = this.shadowRoot.querySelectorAll('button');
       buttons.forEach(button => {
@@ -87,6 +88,8 @@ class NavButtons extends HTMLElement {
       const submit = this.shadowRoot.querySelector('button#submit');
       const next = this.shadowRoot.querySelector('button#next');
       const reset = this.shadowRoot.querySelector('button#reset');
+
+
 
 
       switch (name) {
@@ -120,21 +123,34 @@ class NavButtons extends HTMLElement {
               break;
 
             default:
-              throw new Error('button value is invalid');
+              this.setAttribute('button', oldValue);
+              this.setAttribute('error', 'button can only accept "back", "submit", "next", "reset", and "none" as values.');
               break;
           }
           break;
         //////////////////////////////////
         case 'status':
-          if (!['back', 'submit', 'next', 'reset'].includes(newValue)) return;
-          const button = this.shadowRoot.querySelector(`button#${newValue}`);
           switch (newValue) {
             case 'disabled':
-              button.setAttribute('disabled', 'true');
-              console.info(button, 'button is disabled');
+              if (this.getAttribute('button') === 'none') {
+                return this.setAttribute('error', 'all buttons are already disabled.');
+              }
+              else {
+                const currentButton = this.getAttribute('button');
+                const button = nav.querySelector(`button#${currentButton}`);
+                button.setAttribute('disabled', 'true');
+              }
               break;
             case 'enabled':
-              button.removeAttribute('disabled');
+              if (this.getAttribute('button') === 'none') {
+                this.setAttribute('status', oldValue);
+                return this.setAttribute('error', 'cannot set status to enabled when the button attribute is set to "none".')
+              }
+              else {
+                const currentButton = this.getAttribute('button');
+                const button = nav.querySelector(`button#${currentButton}`)
+                button.removeAttribute('disabled');
+              }
               break;
             case 'none':
               back.setAttribute('disabled', 'true');
@@ -143,7 +159,8 @@ class NavButtons extends HTMLElement {
               reset.setAttribute('disabled', 'true');
               break;
             default:
-              throw new Error(`${name} value is invalid`);
+              this.setAttribute('status', oldValue);
+              this.setAttribute('error', 'status can only accept "disabled", "enabled", and "none" as values.')
               break;
           }
           break;
@@ -157,16 +174,28 @@ class NavButtons extends HTMLElement {
           nav.className = newValue;
           break;
         //////////////////////////////////
+        case 'idle':
+          const wrapper = this.shadowRoot.querySelector('#wrapper');
+          switch (newValue) {
+            case 'true':
+              wrapper.classList.add('idle-rotate');
+              break;
+            case 'false':
+              wrapper.classList.remove('idle-rotate');
+              break;
+            default:
+              this.setAttribute('idle', oldValue);
+              this.setAttribute('error', 'idle can only accept "true" and "false" values.')
+              break;
+          }
         default:
-          throw new Error(`${name} attribute is invalid`);
+          this.setAttribute('error', 'the only accepted attributes are "button", "status", "styles", "class", and "idle".')
           break;
 
       }
     }
     catch (error) {
       throw error;
-      // console.info(error.message);
-      // setStatus({className: 'invalid', message: error.message});
     }
   }
 }
