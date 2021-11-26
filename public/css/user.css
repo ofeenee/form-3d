@@ -1,15 +1,9 @@
 :root {
 
   --form-width: 280px;
-  --form-height: 270px;
+  --form-height: 280px;
 
 }
-
-
-
-
-
-
 
 
 
@@ -26,9 +20,7 @@ form {
   height: var(--form-height) !important;
 
   z-index: 1;
-  gap: 35px;
-
-  /* outline: 1px solid magenta; */
+  gap: 11px;
 }
 
 .animate__zoomIn {
@@ -46,21 +38,30 @@ form {
 status-info {
   /* --width: 560px !important; */
   height: 36px !important;
-  opacity: .5;
+}
+
+status-info[idle="true"] {
+  opacity: 0.5;
 }
 
 fieldset-inputs {
   /* perspective: 600px; */
   width: 100%;
   height: 100px;
-  opacity: .5;
+}
+
+fieldset-inputs[idle="true"] {
+  opacity: 0.5;
 }
 
 nav-buttons {
   perspective: 600px;
   width: 100%;
   height: 64px;
-  opacity: .5;
+}
+
+nav-buttons[idle="true"] {
+  opacity: 0.5;
 }
 
 
