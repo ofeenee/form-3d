@@ -2,9 +2,9 @@ const template = document.createElement('template');
 template.innerHTML = `
 <link rel="stylesheet">
 <div id="fieldset">
-        <div id="sections" class="email-address idle-rotate">
+        <div id="sections" class="email-address">
           <div id="email-address">
-            <div id="wrapper" class="set idle-flip1">
+            <div id="wrapper" class="set">
               <section id="set">
                 <div class="input">
                   <input type="email" id="email" name="email" required autocomplete="username email" inputmode="email"
@@ -26,7 +26,7 @@ template.innerHTML = `
             </div>
           </div>
           <div id="phone-number">
-            <div id="wrapper" class="set idle-flip1">
+            <div id="wrapper" class="set">
               <section id="set">
                 <div class="input">
                   <input type="phone" id="phone" name="phone" required autocomplete="tel" inputmode="numeric"
@@ -48,7 +48,7 @@ template.innerHTML = `
             </div>
           </div>
           <div id="authenticator">
-            <div id="wrapper" class="set idle-flip1">
+            <div id="wrapper" class="set">
               <section id="set">
                 <div class="input">
                   <input type="authenticator" id="authenticator" name="authenticator" required autocomplete="one-time-code" inputmode="numeric"
@@ -70,7 +70,7 @@ template.innerHTML = `
             </div>
           </div>
           <div id="password">
-            <div id="wrapper" class="set idle-flip1">
+            <div id="wrapper" class="set">
               <section id="set">
                 <div class="input">
                   <input type="password" id="set-new-password" name="set-new-password" required autocomplete="new-password" inputmode="text"
@@ -121,7 +121,7 @@ class fieldsetInputs extends HTMLElement {
   }
 
   connectedCallback() {
-    this.setAttribute('idle', true);
+    // this.setAttribute('idle', true);
 
     console.info('••• element is connected:', this.tagName);
   }
@@ -145,10 +145,8 @@ class fieldsetInputs extends HTMLElement {
         });
 
         if (enable) {
-          const fields = sections.querySelectorAll('section#' + enable + ' input');
-          fields.forEach(field => {
-            field.removeAttribute('disabled');
-          });
+          const input = sections.querySelector(`#${enable} section#set input`);
+          input.removeAttribute('disabled');
         }
       }
 
@@ -173,20 +171,24 @@ class fieldsetInputs extends HTMLElement {
               enableInput();
               break;
             case 'email-address':
-              enableInput('email-address');
-              sections.className = 'email-address';
+              enableInput(newValue);
+              sections.className = newValue;
+              this.setAttribute('step', 'set');
               break;
             case 'phone-number':
-              enableInput('phone-number');
-              sections.className = 'phone-number';
+              enableInput(newValue);
+              sections.className = newValue;
+              this.setAttribute('step', 'set');
               break;
             case 'authenticator':
-              enableInput('authenticator');
-              sections.className = 'authenticator';
+              enableInput(newValue);
+              sections.className = newValue;
+              this.setAttribute('step', 'set');
               break;
             case 'password':
-              enableInput('password');
-              sections.className = 'password';
+              enableInput(newValue);
+              sections.className = newValue;
+              this.setAttribute('step', 'set');
               break;
             default:
               this.setAttribute('input', oldValue);
@@ -199,14 +201,28 @@ class fieldsetInputs extends HTMLElement {
           switch (newValue) {
             case 'set':
               if (id && id !== 'none') {
-                const section = sections.querySelector(`#${id}`);
-                section.className = `set`;
+                const wrapper = sections.querySelector(`#${id} #wrapper`);
+
+                const setInput = wrapper.querySelector('#set input');
+                const verifyInput = wrapper.querySelector('#verify input');
+
+                setInput.removeAttribute('disabled');
+                verifyInput.setAttribute('disabled', 'true');
+
+                wrapper.className = `set`;
               }
               break;
             case 'verify':
               if (id && id !== 'none') {
-                const section = sections.querySelector(`#${id}`);
-                section.className = `verify`;
+                const wrapper = sections.querySelector(`#${id} > #wrapper`);
+
+                const setInput = wrapper.querySelector('#set input');
+                const verifyInput = wrapper.querySelector('#verify input');
+
+                setInput.setAttribute('disabled', 'true');
+                verifyInput.removeAttribute('disabled');
+
+                wrapper.className = `verify`;
               }
               break;
             default:
