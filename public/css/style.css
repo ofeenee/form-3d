@@ -9,59 +9,52 @@ html {
 }
 
 body {
-  display: grid;
-  gap: 50px;
-
-  grid-template-columns: repeat(1fr);
-  grid-template-rows: repeat(1fr);
-  grid-template-areas:
-  "h h h h h"
-  ". s s s ."
-  ". m m m ."
-  ". l l l ."
-  "f f f f f"
-  ;
   height: 100%;
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+
+  gap: 25px;
+
 }
 
 main {
-  grid-area: m;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   justify-self: center;
-  align-self: start;
+  align-self: center;
+
 }
 
 footer {
-  grid-area: h;
-  /* height: 50px; */
+
   padding: 10px;
   font-size: 10pt;
-  /* text-align: center; */
-  align-self: start;
-  /* width: 100%; */
-  background-color: rgba(0, 0, 0, 0.4);
-
-  /* box-shadow: var(--default-drop-shadow); */
+  text-align: center;
+  justify-self: center;
 
   color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  border-top: 1px solid white;
+
+
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
 
-footer ul {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: inherit;
-  list-style: none;
-}
-
-footer ul li {
-  font-size: inherit;
-  /* padding: 10px 25px; */
+footer small {
+  font-size: 8pt;
+  letter-spacing: 1px;
+  text-align: justify;
 }
 
 main-background {
