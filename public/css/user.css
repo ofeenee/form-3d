@@ -1,26 +1,12 @@
 :root {
 
-  --form-width: 280px;
-  --form-height: 280px;
-
 }
 
 
 
 
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  flex-grow: 0;
+form-3d {
 
-  width: var(--form-width) !important;
-  height: var(--form-height) !important;
-
-  z-index: 1;
-  gap: 11px;
 }
 
 .animate__zoomIn {
@@ -33,37 +19,6 @@ form {
   animation-duration: 10s !important;
   animation-delay: 2.5s;
 }
-
-
-status-info {
-  /* --width: 560px !important; */
-  height: 36px !important;
-}
-
-status-info[idle="true"] {
-  opacity: 0.5;
-}
-
-fieldset-inputs {
-  /* perspective: 600px; */
-  width: 100%;
-  height: 100px;
-}
-
-fieldset-inputs[idle="true"] {
-  opacity: 0.5;
-}
-
-nav-buttons {
-  perspective: 600px;
-  width: 100%;
-  height: 64px;
-}
-
-nav-buttons[idle="true"] {
-  opacity: 0.5;
-}
-
 
 
 /* @keyframes duration | easing-function | delay |

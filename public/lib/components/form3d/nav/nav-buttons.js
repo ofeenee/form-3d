@@ -1,4 +1,5 @@
-const form = document.querySelector('form#user-account');
+const form = document.querySelector('form-3d').shadowRoot.querySelector('form');
+console.log(form);
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -98,33 +99,33 @@ class NavButtons extends HTMLElement {
           switch (newValue) {
             case 'back':
               nav.className = 'back';
-              back.removeAttribute('disabled');
+              return back.removeAttribute('disabled');
               break;
             case 'submit':
-              submit.onclick = form.onsubmit;
+              if (form?.onsubmit) submit.onclick = form.onsubmit;
 
               nav.className = 'submit';
-              submit.removeAttribute('disabled');
+              return submit.removeAttribute('disabled');
               break;
             case 'next':
               nav.className = 'next';
-              next.removeAttribute('disabled');
+              return next.removeAttribute('disabled');
               break;
             case 'reset':
               nav.className = 'reset';
-              next.removeAttribute('disabled');
+              return next.removeAttribute('disabled');
               break;
             case 'none':
               nav.className = 'back';
               back.setAttribute('disabled', 'true');
               submit.setAttribute('disabled', 'true');
               next.setAttribute('disabled', 'true');
-              reset.setAttribute('disabled', 'true');
+              return reset.setAttribute('disabled', 'true');
               break;
 
             default:
               this.setAttribute('button', oldValue);
-              this.setAttribute('error', 'button can only accept "back", "submit", "next", "reset", and "none" as values.');
+              return this.setAttribute('error', 'button can only accept "back", "submit", "next", "reset", and "none" as values.');
               break;
           }
           break;
@@ -138,7 +139,7 @@ class NavButtons extends HTMLElement {
               else {
                 const currentButton = this.getAttribute('button');
                 const button = nav.querySelector(`button#${currentButton}`);
-                button.setAttribute('disabled', 'true');
+                return button.setAttribute('disabled', 'true');
               }
               break;
             case 'enabled':
@@ -149,47 +150,47 @@ class NavButtons extends HTMLElement {
               else {
                 const currentButton = this.getAttribute('button');
                 const button = nav.querySelector(`button#${currentButton}`)
-                button.removeAttribute('disabled');
+                return button.removeAttribute('disabled');
               }
               break;
             case 'none':
               back.setAttribute('disabled', 'true');
               submit.setAttribute('disabled', 'true');
               next.setAttribute('disabled', 'true');
-              reset.setAttribute('disabled', 'true');
+              return reset.setAttribute('disabled', 'true');
               break;
             default:
               this.setAttribute('status', oldValue);
-              this.setAttribute('error', 'status can only accept "disabled", "enabled", and "none" as values.')
+              return this.setAttribute('error', 'status can only accept "disabled", "enabled", and "none" as values.')
               break;
           }
           break;
         //////////////////////////////////
         case 'styles':
           const stylesheet = template.content.querySelector('link');
-          stylesheet.setAttribute('href', newValue);
+          return stylesheet.setAttribute('href', newValue);
           break;
         //////////////////////////////////
         case 'class':
-          nav.className = newValue;
+          return nav.className = newValue;
           break;
         //////////////////////////////////
         case 'idle':
           const wrapper = this.shadowRoot.querySelector('#wrapper');
           switch (newValue) {
             case 'true':
-              wrapper.classList.add('idle-rotate');
+              return wrapper.classList.add('idle-rotate');
               break;
             case 'false':
-              wrapper.classList.remove('idle-rotate');
+              return wrapper.classList.remove('idle-rotate');
               break;
             default:
               this.setAttribute('idle', oldValue);
-              this.setAttribute('error', 'idle can only accept "true" and "false" values.')
+              return this.setAttribute('error', 'idle can only accept "true" and "false" values.')
               break;
           }
         default:
-          this.setAttribute('error', 'the only accepted attributes are "button", "status", "styles", "class", and "idle".')
+          return this.setAttribute('error', 'the only accepted attributes are "button", "status", "styles", "class", and "idle".')
           break;
 
       }

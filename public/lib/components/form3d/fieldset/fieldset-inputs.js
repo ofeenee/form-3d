@@ -2,97 +2,97 @@ const template = document.createElement('template');
 template.innerHTML = `
 <link rel="stylesheet">
 <div id="fieldset">
-        <div id="sections" class="email-address">
-          <div id="email-address">
-            <div id="wrapper" class="set">
-              <section id="set">
-                <div class="input">
-                  <input type="email" id="email" name="email" required autocomplete="username email" inputmode="email"
-                    enterkeyhint="submit" placeholder="your@email.com">
-                  <label for="email">account email address</label>
-                </div>
-              </section>
-              <section id="verify">
-                <div class="input">
-                  <input type="one-time-code" id="email-verification-code" name="email-verification-code" required disabled
-                    autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
-                  <label for="email-verification-code">email verification code</label>
-                </div>
-              </section>
-              <div id="ceiling"></div>
-              <div id="left-plane"></div>
-              <div id="right-plane"></div>
-              <div id="floor"></div>
-            </div>
+  <div id="sections" class="email-address">
+    <div id="email-address">
+      <div id="wrapper" class="set">
+        <section id="set">
+          <div class="input">
+            <input type="email" id="email" name="email" required autocomplete="username email" inputmode="email"
+              enterkeyhint="submit" placeholder="your@email.com">
+            <label for="email">account email address</label>
           </div>
-          <div id="phone-number">
-            <div id="wrapper" class="set">
-              <section id="set">
-                <div class="input">
-                  <input type="phone" id="phone" name="phone" required autocomplete="tel" inputmode="numeric"
-                    enterkeyhint="submit" placeholder="+1234567890">
-                  <label for="phone">account phone number</label>
-                </div>
-              </section>
-              <section id="verify">
-                <div class="input">
-                  <input type="one-time-code" id="phone-verification-code" name="phone-verification-code" required disabled
-                    autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
-                  <label for="phone-verification-code">phone verification code</label>
-                </div>
-              </section>
-              <div id="ceiling"></div>
-              <div id="left-plane"></div>
-              <div id="right-plane"></div>
-              <div id="floor"></div>
-            </div>
+        </section>
+        <section id="verify">
+          <div class="input">
+            <input type="one-time-code" id="email-verification-code" name="email-verification-code" required disabled
+              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
+            <label for="email-verification-code">email verification code</label>
           </div>
-          <div id="authenticator">
-            <div id="wrapper" class="set">
-              <section id="set">
-                <div class="input">
-                  <input type="authenticator" id="authenticator" name="authenticator" required autocomplete="one-time-code" inputmode="numeric"
-                    enterkeyhint="submit" placeholder="123456" maxlength="6">
-                  <label for="authenticator">account authenticator code</label>
-                </div>
-              </section>
-              <section id="verify">
-                <div class="input">
-                  <input type="one-time-code" id="authenticator-verification-code" name="authenticator-verification-code" required disabled
-                    autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
-                  <label for="authenticator-verification-code">confirm verification code</label>
-                </div>
-              </section>
-              <div id="ceiling"></div>
-              <div id="left-plane"></div>
-              <div id="right-plane"></div>
-              <div id="floor"></div>
-            </div>
-          </div>
-          <div id="password">
-            <div id="wrapper" class="set">
-              <section id="set">
-                <div class="input">
-                  <input type="password" id="set-new-password" name="set-new-password" required autocomplete="new-password" inputmode="text"
-                    enterkeyhint="submit" placeholder="********" maxlength="24">
-                  <label for="set-new-password">account password</label>
-                </div>
-              </section>
-              <section id="verify">
-                <div class="input">
-                  <input type="password" id="confirm-new-password" name="confirm-new-password" required disabled
-                    autocomplete="new-password" inputmode="text" enterkeyhint="submit" placeholder="********" maxlength="24">
-                  <label for="confirm-new-password">confirm password</label>
-                </div>
-              </section>
-              <div id="ceiling"></div>
-              <div id="left-plane"></div>
-              <div id="right-plane"></div>
-              <div id="floor"></div>
-            </div>
-          </div>
-        </div>
+        </section>
+        <div id="ceiling"></div>
+        <div id="left-plane"></div>
+        <div id="right-plane"></div>
+        <div id="floor"></div>
       </div>
+    </div>
+    <div id="phone-number">
+      <div id="wrapper" class="set">
+        <section id="set">
+          <div class="input">
+            <input type="phone" id="phone" name="phone" required autocomplete="tel" inputmode="numeric"
+              enterkeyhint="submit" placeholder="+1234567890">
+            <label for="phone">account phone number</label>
+          </div>
+        </section>
+        <section id="verify">
+          <div class="input">
+            <input type="one-time-code" id="phone-verification-code" name="phone-verification-code" required disabled
+              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
+            <label for="phone-verification-code">phone verification code</label>
+          </div>
+        </section>
+        <div id="ceiling"></div>
+        <div id="left-plane"></div>
+        <div id="right-plane"></div>
+        <div id="floor"></div>
+      </div>
+    </div>
+    <div id="authenticator">
+      <div id="wrapper" class="set">
+        <section id="set">
+          <div class="input">
+            <input type="authenticator" id="authenticator" name="authenticator" required autocomplete="one-time-code" inputmode="numeric"
+              enterkeyhint="submit" placeholder="123456" maxlength="6">
+            <label for="authenticator">account authenticator code</label>
+          </div>
+        </section>
+        <section id="verify">
+          <div class="input">
+            <input type="one-time-code" id="authenticator-verification-code" name="authenticator-verification-code" required disabled
+              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
+            <label for="authenticator-verification-code">confirm verification code</label>
+          </div>
+        </section>
+        <div id="ceiling"></div>
+        <div id="left-plane"></div>
+        <div id="right-plane"></div>
+        <div id="floor"></div>
+      </div>
+    </div>
+    <div id="password">
+      <div id="wrapper" class="set">
+        <section id="set">
+          <div class="input">
+            <input type="password" id="set-new-password" name="set-new-password" required autocomplete="new-password" inputmode="text"
+              enterkeyhint="submit" placeholder="********" maxlength="24">
+            <label for="set-new-password">account password</label>
+          </div>
+        </section>
+        <section id="verify">
+          <div class="input">
+            <input type="password" id="confirm-new-password" name="confirm-new-password" required disabled
+              autocomplete="new-password" inputmode="text" enterkeyhint="submit" placeholder="********" maxlength="24">
+            <label for="confirm-new-password">confirm password</label>
+          </div>
+        </section>
+        <div id="ceiling"></div>
+        <div id="left-plane"></div>
+        <div id="right-plane"></div>
+        <div id="floor"></div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 class fieldsetInputs extends HTMLElement {
@@ -111,8 +111,43 @@ class fieldsetInputs extends HTMLElement {
 
       this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-      const email = this.shadowRoot.querySelector('input#email');
-      email.addEventListener('input', valueChangedListener );
+      const setEmail = this.shadowRoot.querySelector('#email-address #set input');
+      const verifyEmail = this.shadowRoot.querySelector('#email-address #verify input');
+
+      setEmail.addEventListener('input', valueChangedListener);
+      verifyEmail.addEventListener('input', valueChangedListener);
+
+      setEmail.onsubmit = function getEmail(event) {
+        try {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+
+          const value = event.target.value;
+          console.info('email address value: ', value);
+        }
+        catch (error) {
+          throw error;
+        }
+      }
+
+      const setPhone = this.shadowRoot.querySelector('#phone-number #set input');
+      const verifyPhone = this.shadowRoot.querySelector('#phone-number #verify input');
+
+      setPhone.addEventListener('input', valueChangedListener);
+      verifyPhone.addEventListener('input', valueChangedListener);
+
+      const setAuth = this.shadowRoot.querySelector('#authenticator #set input');
+      const verifyAuth = this.shadowRoot.querySelector('#authenticator #verify input');
+
+      setAuth.addEventListener('input', valueChangedListener);
+      verifyAuth.addEventListener('input', valueChangedListener);
+
+      const setPassword = this.shadowRoot.querySelector('#password #set input');
+      const verifyPassword = this.shadowRoot.querySelector('#password #verify input');
+
+      setPassword.addEventListener('input', valueChangedListener);
+      verifyPassword.addEventListener('input', valueChangedListener);
 
     }
     catch (error) {
@@ -137,6 +172,8 @@ class fieldsetInputs extends HTMLElement {
       if (newValue === oldValue) this.setAttribute('error', 'new value and old value are the same.');
       const sections = this.shadowRoot.querySelector('#sections');
       const inputs = sections.querySelectorAll('input');
+
+
 
       function enableInput(enable = null) {
 
@@ -166,29 +203,40 @@ class fieldsetInputs extends HTMLElement {
           break;
         //////////////////////////////////////////
         case 'input':
+          const navButtons = document.querySelector('form-3d').shadowRoot.querySelector('nav-buttons');
           switch (newValue) {
+
             case 'none':
-              enableInput();
+              navButtons.setAttribute('status', 'none');
+              return enableInput();
               break;
             case 'email-address':
               enableInput(newValue);
               sections.className = newValue;
               this.setAttribute('step', 'set');
+              navButtons.setAttribute('button', 'back');
+              navButtons.setAttribute('status', 'disabled');
               break;
             case 'phone-number':
               enableInput(newValue);
               sections.className = newValue;
               this.setAttribute('step', 'set');
+              navButtons.setAttribute('button', 'back');
+              navButtons.setAttribute('status', 'enabled');
               break;
             case 'authenticator':
               enableInput(newValue);
               sections.className = newValue;
               this.setAttribute('step', 'set');
+              navButtons.setAttribute('button', 'back');
+              navButtons.setAttribute('status', 'enabled');
               break;
             case 'password':
               enableInput(newValue);
               sections.className = newValue;
               this.setAttribute('step', 'set');
+              navButtons.setAttribute('button', 'back');
+              navButtons.setAttribute('status', 'enabled');
               break;
             default:
               this.setAttribute('input', oldValue);
@@ -250,18 +298,30 @@ window.customElements.define('fieldset-inputs', fieldsetInputs);
 function valueChangedListener(event) {
   try {
     console.log('input change listened!');
-    const navButtons = document.querySelector('nav-buttons');
+    const navButtons = document.querySelector('form-3d').shadowRoot.querySelector('nav-buttons');
     if (event.currentTarget.value.length > 0) {
       navButtons.setAttribute('button', 'submit');
     }
     else {
       navButtons.setAttribute('button', 'back');
-      navButtons.setAttribute('status', 'enabled');
+      if (event.currentTarget.id === 'email') return navButtons.setAttribute('status', 'disabled');
+      else navButtons.setAttribute('status', 'enabled');
     }
 
   }
   catch (error) {
     setStatus({ className: 'invalid', message: error.message });
+    throw error;
+  }
+}
+
+function setStatus({className = 'notice', message = 'clear all text to go back'}) {
+  try {
+    const status = document.querySelector('form-3d').shadowRoot.querySelector('status-info');
+    status.setAttribute('status', className);
+    status.setAttribute('text', message);
+  }
+  catch (error) {
     throw error;
   }
 }

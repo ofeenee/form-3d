@@ -18,7 +18,7 @@ body {
   align-items: center;
   flex: 0 0 auto;
 
-  gap: 25px;
+  /* gap: 25px; */
 
 }
 
@@ -27,37 +27,16 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  justify-self: center;
-  align-self: center;
+  padding: 0;
+  margin: 0;
 
 }
 
-footer {
 
-  padding: 10px;
-  font-size: 10pt;
-  text-align: center;
-  justify-self: center;
-
-  color: white;
-  background-color: rgba(0, 0, 0, 0.4);
-
-  border-top: 1px solid white;
-
-
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
-
-footer small {
-  font-size: 8pt;
-  letter-spacing: 1px;
-  text-align: justify;
-}
 
 main-background {
+  /* opacity: 0.75; */
+  /* display: none; */
   z-index: -99999;
 }
 

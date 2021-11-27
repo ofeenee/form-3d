@@ -1,6 +1,8 @@
+import validator from 'validator';
+
 import JWT from '@ofeenee/jwt';
-const ACCESS = new JWT({expiration: '5m', encrypted: true, issuer: 'x4.ngrok.io'});
-const REFRESH = new JWT({issuer: 'server', audience : 'developer', path: '.refresh'})
+const ACCESS = new JWT({expiration: '5m', encrypted: true, issuer: 'colliverde.com'});
+const REFRESH = new JWT({issuer: 'colliverde.com', audience : 'developer', path: '.refresh'})
 
 import PostgresDB from '@ofeenee/postgresdb';
 const Postgres  = new PostgresDB();
@@ -8,6 +10,7 @@ const Postgres  = new PostgresDB();
 import Redis from '@ofeenee/redis';
 // import Redis from '../../Classes/Redis/Redis.js';
 import User from '@ofeenee/user';
+import {Phone, Email} from '@ofeenee/user';
 
 import express from 'express';
 
@@ -21,217 +24,88 @@ const redis = new Redis({
 
 console.log(await redis.deleteAll());
 
-const emailPrefix = 'email:';
-const phonePrefix = 'phone:';
-const codePrefix = 'code:';
-
-Users.post('/get/email', loadUserByEmail, checkUserEmailVerification, async function(req, res) {
+Users.get('/validate/email/:email', loadUserByEmail, checkUserEmailVerification, async function(req, res) {
   try {
-    const { user } = req;
-    return res.status(200).json({ returning: user.returning, verified: user.verified});
-    // TODO
-    // if existing do this
-    // if new do that
-  }
+    const email = req.params.email;
+    return res.status(200).json({ email: email.get(), valid: true });
+   }
   catch (error) {
-    // console.log(error);
     return res.status(500).json({error: error.message});
   }
 });
 
 
-Users.post('/send/code/email', loadUserByEmail, async function(req, res) {
+Users.get('/validate/phone/:phone', loadUserByEmail, async function(req, res) {
   try {
-    const { user } = req;
-    if (user?.returning) {
-      // do this
-    }
-    else {
-      // do that
-    }
-    const codeRequested = await redis.exists(codePrefix + user.email.get());
-    if (codeRequested?.exists) {
-      return res.status(200).json(codeRequested);
-    }
-
-
-    const verified = await redis.get(emailPrefix + user.email.get());
-    console.log('/send/code/email:', user.email.get(), verified);
-
-    if (verified === 'verified') return res.status(200).json({email: user.email.get(), verified: 'true'});
-
-
-
-    const verification = await user.email.verification.sendCode(req.body.email);
-    const newCodeRequest = await redis.set(codePrefix + user.email.get(), 'sent', 60);
-
-    return res.status(200).json({verification, codeRequest: newCodeRequest});
-
-  }
-  catch (error) {
-    console.log(error);
-    return res.status(500).json({error: error.message});
-  }
-});
-
-Users.post('/verify/code/email', async function(req, res) {
-  try {
-    const user = new User(req.body);
-
-    const verified = await redis.get(emailPrefix + user.email.get());
-    console.log('/verify/code/email:', user.email.get(), verified);
-
-    if (verified === 'true') return res.status(200).json({ email: user.email.get(), verified });
-
-    const verification = await user.email.verification.confirmCode(req.body.code);
-    if (verification.status === 'approved') {
-      const verified = await redis.put(emailPrefix + user.email.get(), 'true');
-
-      const codeRequested = await redis.del(codePrefix + user.email.get());
-      console.log('delete code request from redis...', codeRequested);
-
-      return res.status(200).json({email: user.email.get(), verified: 'true', redis: verified});
-    }
-
-    return res.status(401).json({email: user.email.get(), error: 'code invalid.'});
-
+    const phone = new Phone(req.params.phone);
+    return res.status(200).json({ phone: phone.get(), valid: true});
   }
   catch (error) {
     return res.status(500).json({error: error.message});
   }
 });
 
-Users.post('/get/phone', async function (req, res) {
+Users.get('/verification/email/send/:email/', async function(req, res) {
   try {
-    const user = new User(req.body);
+    const email = new Email(req.params.email);
 
-    const postgres = new Postgres();
-    const response = await postgres.getByPhone(user.phone.get());
-
-    if (response) {
-      return res.status(200).json({ status: 'returning user', existing: true });
-    }
-    else {
-
-      const state = await redis.get(phonePrefix + user.email.get());
-      console.log('/get:', user.email.get(), state);
-
-      if (state != 'null') await redis.set(phonePrefix + user.email.get(), 'unverified');
-      return res.status(200).json({ status: 'new user', existing: false, verified: state || false });
-    }
+    const response = await email.verification.sendCode();
+    res.status(200).json({email, status: response.status});
   }
   catch (error) {
-    // console.log(error);
     return res.status(500).json({ error: error.message });
   }
 });
 
-Users.post('/send/code/phone/:channel', async function(req, res) {
+Users.get('/verification/email/verify/:email/:code/', async function(req, res) {
   try {
-    const user = new User(req.body);
+    const email = new Email(req.params.email);
 
-    const codeRequested = await redis.exists(codePrefix + user.phone.get());
-    if (codeRequested?.exists) {
-      return res.status(200).json(codeRequested);
-    }
-
-
-    const verified = await redis.get(phonePrefix + user.phone.get());
-    console.log('/send/code/phone:', user.phone.get(), verified);
-
-    if (verified === 'verified') return res.status(200).json({phone: user.phone.get(), verified});
-
-
-
-    const verification = await user.phone.verification.sendCode(req.body.phone);
-    const newCodeRequest = await redis.set(codePrefix + user.phone.get(), 'sent', 60);
-
-    return res.status(200).json({verification, codeRequest: newCodeRequest});
-
+    const response = await email.verification.confirmCode(req.params.code);
+    res.status(200).json({email, status: `${email.get()}: ${response.status === 'approved' ? 'approved' : 'verification failed.'}`});
   }
   catch (error) {
-    console.log(error);
-    return res.status(500).json({error: error.message});
+    return res.status(500).json({ error: error.message });
   }
 });
 
-Users.post('/verify/code/phone/:channel', async function(req, res) {
+Users.get('/verification/phone/verify/:phone/:code/', async function(req, res) {
   try {
-    const user = new User(req.body);
+    const phone = new Phone(req.params.phone);
 
+    const response = await phone.verification.confirmCode(req.params.code);
+    res.status(200).json({phone, status: `${phone.get()}: ${response.status === 'approved' ? 'approved' : 'verification failed.'}`});
+  }
+  catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 
-    console.log('channel:', req.params);
+Users.get('/verification/phone/send/sms/:phone', async function(req, res) {
+  try {
+    const phone = new Phone(req.params.phone);
 
-    const verified = await redis.get(phonePrefix + user.phone.get());
-    console.log('/verify/code/phone:', user.phone.get(), verified);
-
-    if (verified === 'verified') return res.status(200).json({ phone: user.phone.get(), verified });
-
-    const verification = await user.phone.verification.confirmCode(req.body.code);
-    if (verification.status === 'approved') {
-      const verified = await redis.put(phonePrefix + user.phone.get(), 'verified');
-
-      const codeRequested = await redis.del(codePrefix + user.phone.get());
-      console.log('delete code request from redis...', codeRequested);
-
-      return res.status(200).json({phone: user.phone.get(), verified: true, redis: verified});
-    }
-
-    return res.status(401).json({phone: user.phone.get(), error: 'code invalid.'});
-
+    const response = await phone.verification.sendCodeSMS();
+    res.status(200).json({phone, status: `code sent via SMS: ${response.status}`});
   }
   catch (error) {
     return res.status(500).json({error: error.message});
   }
 });
 
-Users.post('/send/code/phone', async function(req, res) {
+Users.get('/verification/phone/send/call/:phone/', async function(req, res) {
   try {
-    const user = new User(req.body);
+    const phone = new Phone(phone);
 
-
-    const verification = await user.phone.verification.sendCodeSMS(req.body.phone);
-
-    return res.status(200).json(verification);
-
+    const response = await phone.verification.sendCodeCall();
+    res.status(200).json({ phone, status: `code sent via phone call: ${response.status}`});
   }
   catch (error) {
     return res.status(500).json({error: error.message});
   }
 });
 
-Users.post('/verify/code/phone', async function(req, res) {
-  try {
-    const user = new User(req.body);
 
-
-    const verification = await user.phone.verification.confirmCode(req.body.code);
-    if (verification.status === 'approved') {
-
-    }
-
-    return res.status(200).json(verification.status);
-
-  }
-  catch (error) {
-    return res.status(500).json({error: error.message});
-  }
-});
-
-Users.post('/registration', async function(req, res) {
-  try {
-    const user = new User(req.body);
-
-    console.log(req.body);
-    console.log(user.info());
-
-    return res.status(200).json(user.info());
-
-  }
-  catch (error) {
-    return res.status(500).json({error: error.message});
-  }
-});
 
 export default Users;
 

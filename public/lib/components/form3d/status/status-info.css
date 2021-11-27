@@ -13,21 +13,21 @@
 :host {
   --primary-color: white;
 
-  --width: 280px;
-  --height: 36px !important;
+  --default-width: 300px;
+  --default-height: 36px !important;
 
   --perspective: 600px;
   --transition-duration: 0.4s;
-  --button-background-color: rgba(2, 64, 180, 0.75);
-  --button-background-color-active: rgba(1, 49, 138, 0.75);
+  --button-background-color: rgba(2, 64, 180, 0.65);
+  --button-background-color-active: rgba(1, 49, 138, 0.65);
   --button-background-color-disabled: rgba(55, 55, 55, 0.85);
 
   --drop-shadow-color: rgba(0, 0, 0, 0.35);
   --inset-shadow: inset 0px 0px 6px 3px var(--drop-shadow-color);
 
-  --info-background-color: rgba(55, 55, 55, 0.85);
-  --info-color-valid: rgba(9, 167, 35, 0.85);
-  --info-color-invalid: rgba(255, 48, 48, 0.85);
+  --info-background-color: rgba(55, 55, 55, 0.5);
+  --info-color-valid: rgba(9, 167, 35, 0.65);
+  --info-color-invalid: rgba(255, 48, 48, 0.65);
 
 }
 
@@ -44,8 +44,8 @@
 
 #wrapper {
 
-  width: var(--width);
-  height: var(--height);
+  width: var(--default-width);
+  height: var(--default-height);
 
 
   perspective: var(--perspective);
@@ -83,7 +83,7 @@
   width: 280px !important;
 
   font-size: 10px;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1pt;
   text-align: center;
 
@@ -118,8 +118,8 @@
 p, button {
   position: absolute;
 
-  height: var(--height) !important;
-  width: var(--width) !important;
+  height: var(--default-height) !important;
+  width: var(--default-width) !important;
 
   display: flex;
   justify-content: center;
