@@ -4,7 +4,7 @@ template.innerHTML = `
 <div id="fieldset">
   <div id="sections" class="email-address">
     <div id="email-address">
-      <div id="wrapper" class="set">
+      <div id="set-verify-wrapper" class="set">
         <section id="set">
           <div class="input">
             <input type="email" id="email" name="email" required autocomplete="username email" inputmode="email"
@@ -15,7 +15,7 @@ template.innerHTML = `
         <section id="verify">
           <div class="input">
             <input type="one-time-code" id="email-verification-code" name="email-verification-code" required disabled
-              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
+              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="1234567" maxlength="7">
             <label for="email-verification-code">email verification code</label>
           </div>
         </section>
@@ -26,7 +26,7 @@ template.innerHTML = `
       </div>
     </div>
     <div id="phone-number">
-      <div id="wrapper" class="set">
+      <div id="set-verify-wrapper" class="set">
         <section id="set">
           <div class="input">
             <input type="phone" id="phone" name="phone" required autocomplete="tel" inputmode="numeric"
@@ -37,7 +37,7 @@ template.innerHTML = `
         <section id="verify">
           <div class="input">
             <input type="one-time-code" id="phone-verification-code" name="phone-verification-code" required disabled
-              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="123456" maxlength="6">
+              autocomplete="one-time-code" inputmode="numeric" enterkeyhint="submit" placeholder="1234567" maxlength="7">
             <label for="phone-verification-code">phone verification code</label>
           </div>
         </section>
@@ -48,7 +48,7 @@ template.innerHTML = `
       </div>
     </div>
     <div id="authenticator">
-      <div id="wrapper" class="set">
+      <div id="set-verify-wrapper" class="set">
         <section id="set">
           <div class="input">
             <input type="authenticator" id="authenticator" name="authenticator" required autocomplete="one-time-code" inputmode="numeric"
@@ -70,7 +70,7 @@ template.innerHTML = `
       </div>
     </div>
     <div id="password">
-      <div id="wrapper" class="set">
+      <div id="set-verify-wrapper" class="set">
         <section id="set">
           <div class="input">
             <input type="password" id="set-new-password" name="set-new-password" required autocomplete="new-password" inputmode="text"
@@ -173,6 +173,7 @@ class fieldsetInputs extends HTMLElement {
       const sections = this.shadowRoot.querySelector('#sections');
       const inputs = sections.querySelectorAll('input');
 
+      const navButtons = document.querySelector('form-3d').shadowRoot.querySelector('nav-buttons');
 
 
       function enableInput(enable = null) {
@@ -184,6 +185,7 @@ class fieldsetInputs extends HTMLElement {
         if (enable) {
           const input = sections.querySelector(`#${enable} section#set input`);
           input.removeAttribute('disabled');
+          return input;
         }
       }
 
@@ -203,41 +205,70 @@ class fieldsetInputs extends HTMLElement {
           break;
         //////////////////////////////////////////
         case 'input':
-          const navButtons = document.querySelector('form-3d').shadowRoot.querySelector('nav-buttons');
           switch (newValue) {
-
             case 'none':
               navButtons.setAttribute('status', 'none');
               return enableInput();
               break;
-            case 'email-address':
-              enableInput(newValue);
+            case 'email-address': {
+              const input = enableInput(newValue);
               sections.className = newValue;
-              this.setAttribute('step', 'set');
-              navButtons.setAttribute('button', 'back');
-              navButtons.setAttribute('status', 'disabled');
+              console.info(input);
+              if (input.value.length) {
+                navButtons.setAttribute('button', 'submit');
+                navButtons.setAttribute('status', 'enabled');
+              }
+              else {
+                navButtons.setAttribute('button', 'back');
+                navButtons.setAttribute('status', 'disabled');
+              }
               break;
-            case 'phone-number':
-              enableInput(newValue);
+            }
+            case 'phone-number': {
+              const input = enableInput(newValue);
+              console.info(input);
+
               sections.className = newValue;
-              this.setAttribute('step', 'set');
-              navButtons.setAttribute('button', 'back');
-              navButtons.setAttribute('status', 'enabled');
+              if (input.value.length) {
+                navButtons.setAttribute('button', 'submit');
+                navButtons.setAttribute('status', 'enabled');
+              }
+              else {
+                navButtons.setAttribute('button', 'back');
+                navButtons.setAttribute('status', 'enabled');
+              }
               break;
-            case 'authenticator':
-              enableInput(newValue);
+            }
+            case 'authenticator': {
+              const input = enableInput(newValue);
+              console.info(input);
+
               sections.className = newValue;
-              this.setAttribute('step', 'set');
-              navButtons.setAttribute('button', 'back');
-              navButtons.setAttribute('status', 'enabled');
+              if (input.value.length) {
+                navButtons.setAttribute('button', 'submit');
+                navButtons.setAttribute('status', 'enabled');
+              }
+              else {
+                navButtons.setAttribute('button', 'back');
+                navButtons.setAttribute('status', 'enabled');
+              }
               break;
-            case 'password':
-              enableInput(newValue);
+            }
+            case 'password': {
+              const input = enableInput(newValue);
+              console.info(input);
+
               sections.className = newValue;
-              this.setAttribute('step', 'set');
-              navButtons.setAttribute('button', 'back');
-              navButtons.setAttribute('status', 'enabled');
+              if (input.value.length) {
+                navButtons.setAttribute('button', 'submit');
+                navButtons.setAttribute('status', 'enabled');
+              }
+              else {
+                navButtons.setAttribute('button', 'back');
+                navButtons.setAttribute('status', 'enabled');
+              }
               break;
+            }
             default:
               this.setAttribute('input', oldValue);
               return this.setAttribute('error', 'valid input values are "email-address", "phone-number", "authenticator", "password", and "none".')
@@ -249,7 +280,7 @@ class fieldsetInputs extends HTMLElement {
           switch (newValue) {
             case 'set':
               if (id && id !== 'none') {
-                const wrapper = sections.querySelector(`#${id} #wrapper`);
+                const wrapper = sections.querySelector(`#${id} #set-verify-wrapper`);
 
                 const setInput = wrapper.querySelector('#set input');
                 const verifyInput = wrapper.querySelector('#verify input');
@@ -258,11 +289,26 @@ class fieldsetInputs extends HTMLElement {
                 verifyInput.setAttribute('disabled', 'true');
 
                 wrapper.className = `set`;
+
+                if (setInput.value.length) {
+                  navButtons.setAttribute('button', 'submit');
+                  navButtons.setAttribute('status', 'enabled');
+                }
+                else {
+                  if (id === 'email-address') {
+                    navButtons.setAttribute('button', 'back');
+                    navButtons.setAttribute('status', 'disabled');
+                  }
+                  else {
+                    navButtons.setAttribute('button', 'back');
+                    navButtons.setAttribute('status', 'enabled');
+                  }
+                }
               }
               break;
             case 'verify':
               if (id && id !== 'none') {
-                const wrapper = sections.querySelector(`#${id} > #wrapper`);
+                const wrapper = sections.querySelector(`#${id} > #set-verify-wrapper`);
 
                 const setInput = wrapper.querySelector('#set input');
                 const verifyInput = wrapper.querySelector('#verify input');
@@ -271,7 +317,17 @@ class fieldsetInputs extends HTMLElement {
                 verifyInput.removeAttribute('disabled');
 
                 wrapper.className = `verify`;
+                console.log(verifyInput.value);
+                if (verifyInput.value.length) {
+                  navButtons.setAttribute('button', 'submit');
+                  navButtons.setAttribute('status', 'enabled');
+                }
+                else {
+                  navButtons.setAttribute('button', 'back');
+                  navButtons.setAttribute('status', 'enabled');
+                }
               }
+
               break;
             default:
               this.setAttribute('step', oldValue);

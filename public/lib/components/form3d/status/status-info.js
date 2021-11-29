@@ -65,6 +65,7 @@ class statusInfo extends HTMLElement {
 
       const wrapper = this.shadowRoot.querySelector('#wrapper');
       wrapper.classList.remove('error-shake');
+      wrapper.classList.remove('valid-pulse');
 
       const info = this.shadowRoot.querySelector('#info');
 
@@ -101,6 +102,8 @@ class statusInfo extends HTMLElement {
             case "valid":
               const valid = this.shadowRoot.querySelector('#valid');
               valid.textContent = newValue;
+
+              wrapper.classList.add('valid-pulse');
               break;
             case "notice":
               const notice = this.shadowRoot.querySelector('#notice');

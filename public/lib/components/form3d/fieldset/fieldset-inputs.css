@@ -185,10 +185,10 @@
 
 
 /*************************
-        #WRAPPER
+        #SET-VERIFY-WRAPPER
 *************************/
 
-#wrapper {
+#set-verify-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -215,31 +215,31 @@ div {
 
 }
 
-#wrapper.set {
+#set-verify-wrapper.set {
   transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
 }
 
-#wrapper.verify {
+#set-verify-wrapper.verify {
   transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, -180deg);
 }
 
-#wrapper.set #verify {
+#set-verify-wrapper.set #verify {
   opacity: 0 !important;
 }
 
-#wrapper.set #set {
+#set-verify-wrapper.set #set {
   outline: 1px solid white;
 }
 
-#wrapper.verify #verify {
+#set-verify-wrapper.verify #verify {
   outline: 1px solid white;
 }
 
-#wrapper.verify #set {
+#set-verify-wrapper.verify #set {
   opacity: 0 !important;
 }
 
-#wrapper section {
+#set-verify-wrapper section {
   position: absolute;
 
   width: 100%;
@@ -287,12 +287,12 @@ input[autocomplete="one-time-code"] {
       DIV.#RIGHT-PLANE
 *************************/
 
-#wrapper div {
+#set-verify-wrapper div {
   width: 100%;
   height: 100%;
 }
 
-#wrapper #ceiling {
+#set-verify-wrapper #ceiling {
   position: absolute;
   width: var(--form-width);
   height: calc(var(--input-thickness) * 2);
@@ -306,7 +306,7 @@ input[autocomplete="one-time-code"] {
   opacity: .65;
 }
 
-#wrapper #right-plane {
+#set-verify-wrapper #right-plane {
   position: absolute;
   width: calc(var(--input-thickness) * 2);
   height: var(--default-height);
@@ -323,7 +323,7 @@ input[autocomplete="one-time-code"] {
 /*************************
       DIV.#RIGHT-PLANE
 *************************/
-#wrapper #left-plane {
+#set-verify-wrapper #left-plane {
   position: absolute;
   width: calc(var(--input-thickness) * 2);
   height: var(--default-height);
@@ -337,7 +337,7 @@ input[autocomplete="one-time-code"] {
   opacity: .65;
 }
 
-#wrapper #floor {
+#set-verify-wrapper #floor {
   position: absolute;
   width: var(--default-width);
   height: calc(var(--input-thickness) * 2);
@@ -475,18 +475,36 @@ label {
 /* Targets Safari only */
 @supports selector(:nth-child(1 of x)) {
 
+
+#sections.email-address {
+  transform: perspective(100000000) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+#sections.phone-number {
+  transform: perspective(100000000) rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 0px);
+}
+
+#sections.authenticator {
+  transform: perspective(100000000) rotate3d(1, 0, 0, -180deg) translate3d(0px, 0px, 0px);
+}
+
+#sections.password {
+  transform: perspective(100000000) rotate3d(1, 0, 0, -270deg) translate3d(0px, 0px, 0px);
+}
+
+
   /*************************
         #email-address
   *************************/
   #sections > #email-address {
-    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, calc(var(--input-thickness) * -1)) !important;
+    transform: perspective(100000000) scale3d(.91, .91, .91) rotate3d(1, 0, 0, 0deg) translate3d(0px, 0px, calc(var(--input-thickness) * -1)) !important;
   }
 
   /*************************
         #phone-number
   *************************/
   #sections > #phone-number {
-    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 90deg) translate3d(0px, calc((var(--default-height) / 2)  * -1), calc((var(--default-height) / 2 * 1) + var(--input-thickness) * -1)) !important;
+    transform: perspective(100000000) scale3d(.91, .91, .91) rotate3d(1, 0, 0, 90deg) translate3d(0px, calc((var(--default-height) / 2)  * -1), calc((var(--default-height) / 2 * 1) + var(--input-thickness) * -1)) !important;
   }
 
 
@@ -494,14 +512,14 @@ label {
         #authenticator
   *************************/
   #sections > #authenticator {
-    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, calc((var(--default-height)) - var(--input-thickness) * 1)) !important;
+    transform: perspective(100000000) scale3d(.91, .91, .91) rotate3d(1, 0, 0, 180deg) translate3d(0px, 0px, calc((var(--default-height)) - var(--input-thickness) * 1)) !important;
   }
 
   /*************************
         #password
   *************************/
   #sections > #password {
-    transform: scale3d(.91, .91, .91) rotate3d(1, 0, 0, 270deg) translate3d(0px, calc(var(--default-height) / 2), calc((var(--default-height) / 2) + var(--input-thickness) * -1)) !important;
+    transform: perspective(100000000) scale3d(.91, .91, .91) rotate3d(1, 0, 0, 270deg) translate3d(0px, calc(var(--default-height) / 2), calc((var(--default-height) / 2) + var(--input-thickness) * -1)) !important;
   }
 
 }

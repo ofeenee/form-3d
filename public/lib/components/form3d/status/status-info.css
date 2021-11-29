@@ -115,6 +115,10 @@
   animation: .1s ease-in-out 2 0.25s normal running error-shake;
 }
 
+.valid-pulse {
+  animation: .75s ease-in-out 1 0.4s normal running valid-pulse;
+}
+
 p, button {
   position: absolute;
 
@@ -205,19 +209,37 @@ button:active {
 }
 
 @keyframes error-shake {
-    0% {
-    transform: translate3d(0%, 0%, 0px);
-    }
-    25% {
-    transform: translate3d(5%, 0%, 0px);
-    }
-    50% {
-      transform: translate3d(-5%, 0%, 0px);
-    }
-    100% {
-      transform: translate3d(0%, 0%, 0px);
-    }
+  0% {
+  transform: translate3d(0%, 0%, 0px);
   }
+  25% {
+  transform: translate3d(5%, 0%, 0px);
+  }
+  50% {
+    transform: translate3d(-5%, 0%, 0px);
+  }
+  100% {
+    transform: translate3d(0%, 0%, 0px);
+  }
+}
+
+@keyframes valid-pulse {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: .45;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: .45;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @keyframes idle-rotate {
   0% {

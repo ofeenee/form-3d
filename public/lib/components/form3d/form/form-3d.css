@@ -132,10 +132,9 @@ div#background{
 }
 
 footer {
-  height: 25px;
+  /* height: 25px; */
   width: calc(var(--default-width) - 20%);
 
-  padding: 10px;
 
   /* position: relative; */
   /* top: 10px; */
@@ -149,6 +148,8 @@ footer {
   justify-content: center;
   align-items: center;
 
+  gap: 2px;
+
   color: white;
   /* background-color: rgba(0, 0, 0, 0.4); */
 
@@ -161,14 +162,20 @@ footer {
   /* background-color: var(--secondary-background-color); */
 }
 
-footer small {
+footer small:first-child {
   padding-top: 10px;
+}
+
+footer small {
   font-size: 7.5pt;
   font-weight: 400;
   letter-spacing: 1px;
   text-align: justify;
   text-transform: capitalize;
+}
 
+footer small:last-child {
+  padding-top: 15px;
 }
 
 /* @keyframes duration | easing-function | delay |
