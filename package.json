@@ -8,7 +8,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha || true"
+    "test": "mocha || true",
+    "dev": "nodemon -r dotenv/config app.js",
+    "ngrok": "ngrok http localhost:$PORT --hostname x4.ngrok.io"
   },
   "repository": {
     "type": "git",
@@ -26,9 +28,7 @@
   },
   "homepage": "https://github.com/ofeenee/users-routes#readme",
   "dependencies": {
-    "@ofeenee/email": "^0.0.19",
     "@ofeenee/jwt": "^0.0.1",
-    "@ofeenee/phone": "^0.0.10",
     "@ofeenee/postgresdb": "^0.0.5",
     "@ofeenee/redis": "^0.0.6",
     "@ofeenee/user": "^0.0.7",
@@ -36,8 +36,8 @@
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "swup": "^2.0.14",
-    "twilio": "^3.71.2"
+    "socket.io": "^4.4.0",
+    "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
     "chai": "^4.3.4",

@@ -1,4 +1,4 @@
-import validator from 'validator';
+
 
 import JWT from '@ofeenee/jwt';
 const ACCESS = new JWT({expiration: '5m', encrypted: true, issuer: 'colliverde.com'});
@@ -7,22 +7,26 @@ const REFRESH = new JWT({issuer: 'colliverde.com', audience : 'developer', path:
 import PostgresDB from '@ofeenee/postgresdb';
 const Postgres  = new PostgresDB();
 
-import Redis from '@ofeenee/redis';
+
 // import Redis from '../../Classes/Redis/Redis.js';
+import Redis from '@ofeenee/redis';
+const redis = new Redis({
+  db: 0
+});
+console.log('redis db cleared:', await redis.deleteAll());
+
 import User from '@ofeenee/user';
 import {Phone, Email} from '@ofeenee/user';
 
-import express from 'express';
 
+import express from 'express';
 const Users = express.Router();
 Users.use(express.json());
 Users.use(express.urlencoded({extended: true}));
 
-const redis = new Redis({
-  db: 0
-});
 
-console.log(await redis.deleteAll());
+
+
 
 Users.get('/validate/email/:email', loadUserByEmail, checkUserEmailVerification, async function(req, res) {
   try {
